@@ -25,10 +25,10 @@ export default async function pageTwo() {
   const data = await getData();
 
   return (
-    <div>
+    <div className="h-full flex flex-col justify-center my-20">
       {data.map((location, index) => (
         <div key={index}>
-          <h2 className="mt-[33px] mb-[11px]">
+          <h2 className="mb-[11px]">
             [{index + 1}] {location.title}
           </h2>
           <p className="mb-[23px]">{location.subtitle}</p>
@@ -42,7 +42,7 @@ export default async function pageTwo() {
               className="w-full h-auto max-h-[412px] object-cover mb-[20px]"
             />
           )}
-          <div className="flex justify-between items-start mb-[33px]">
+          <div className="flex justify-between items-start">
             <ul>
               {location.attributes?.map((attr, i) => (
                 <li key={i} className="flex items-center gap-[4.64px]">
