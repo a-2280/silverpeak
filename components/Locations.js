@@ -7,7 +7,7 @@ export const revalidate = 3600;
 
 async function getData() {
   const query = `
-    *[_type == 'location'] | order(_createdAt desc) {
+    *[_type == 'location'] | order(_createdAt asc) {
   title,
     subtitle,
     "currentSlug": slug.current,
@@ -21,13 +21,16 @@ async function getData() {
   return data;
 }
 
-export default async function pageTwo() {
+export default async function Locations() {
   const data = await getData();
 
   return (
-    <div className="h-full flex flex-col justify-center my-20">
+    <div className="h-max flex flex-col justify-center">
       {data.map((location, index) => (
-        <div key={index}>
+        <section
+          key={index}
+          className="h-screen flex flex-col justify-center snap-center"
+        >
           <h2 className="mb-[11px]">
             [{index + 1}] {location.title}
           </h2>
@@ -57,9 +60,9 @@ export default async function pageTwo() {
                 </li>
               ))}
             </ul>
-            <Link href={`/pageTwo/${location.currentSlug}`}>read more</Link>
+            <Link href={`/locations/${location.currentSlug}`}>read more</Link>
           </div>
-        </div>
+        </section>
       ))}
     </div>
   );

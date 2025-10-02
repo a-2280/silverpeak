@@ -37,6 +37,24 @@ export default {
       options: {
         layout: "tags",
       },
+      initialValue: [
+        "Structural Engineering",
+        "Civil Engineering",
+        "Architectural Design",
+        "Site Planning",
+        "Entitlement",
+        "Surveying",
+      ],
+    },
+    {
+      title: "Description",
+      name: "description",
+      type: "array",
+      of: [
+        {
+          type: "block",
+        },
+      ],
     },
   ],
 };
