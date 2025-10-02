@@ -6,11 +6,9 @@ import { urlFor } from "@/sanity/lib/image";
 import { PortableText } from "@portabletext/react";
 
 export default function LocationCarousel({ locations, initialSlug }) {
-  if (!locations || locations.length === 0) return null;
-
-  const initialIndex = locations.findIndex(
+  const initialIndex = locations?.findIndex(
     (loc) => loc.currentSlug === initialSlug
-  );
+  ) ?? -1;
   const [activeIndex, setActiveIndex] = useState(
     initialIndex >= 0 ? initialIndex : 0
   );
@@ -18,45 +16,35 @@ export default function LocationCarousel({ locations, initialSlug }) {
   const activeIndexRef = useRef(activeIndex);
   const isUpdatingRef = useRef(false);
 
+  const activeLocation = locations?.[activeIndex];
+  const useInfiniteScroll = (locations?.length ?? 0) >= 3;
+  const ITEM_WIDTH = 286;
+  const OFFSET = locations?.length ?? 0;
+
+  const displayLocations = useMemo(
+    () => locations && useInfiniteScroll ? [...locations, ...locations, ...locations] : locations || [],
+    [locations, useInfiniteScroll]
+  );
+
   // Keep ref in sync
   useEffect(() => {
     activeIndexRef.current = activeIndex;
   }, [activeIndex]);
 
-  const activeLocation = locations[activeIndex];
-
-  // Only use infinite scroll if we have 3+ locations
-  const useInfiniteScroll = locations.length >= 3;
-  const displayLocations = useMemo(
-    () =>
-      useInfiniteScroll
-        ? [...locations, ...locations, ...locations]
-        : locations,
-    [locations, useInfiniteScroll]
-  );
-
-  const ITEM_WIDTH = 286; // 283px + 3px gap
-  const OFFSET = locations.length;
-
   // Initial scroll position
   useEffect(() => {
     const container = scrollRef.current;
-    if (!container) return;
+    if (!container || !locations) return;
 
-    const startIndex = useInfiniteScroll
-      ? OFFSET + (initialIndex >= 0 ? initialIndex : 0)
-      : initialIndex >= 0
-        ? initialIndex
-        : 0;
-    const targetScroll =
-      startIndex * ITEM_WIDTH - (container.clientWidth / 2 - 141.5);
+    const startIndex = useInfiniteScroll ? OFFSET + (initialIndex >= 0 ? initialIndex : 0) : (initialIndex >= 0 ? initialIndex : 0);
+    const targetScroll = startIndex * ITEM_WIDTH - (container.clientWidth / 2 - 141.5);
     container.scrollLeft = targetScroll;
   }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
   // Handle scroll updates
   useEffect(() => {
     const container = scrollRef.current;
-    if (!container) return;
+    if (!container || !locations) return;
 
     let rafId = null;
     let scrollEndTimeout = null;
@@ -67,9 +55,7 @@ export default function LocationCarousel({ locations, initialSlug }) {
       rafId = requestAnimationFrame(() => {
         const scrollPosition = container.scrollLeft + container.clientWidth / 2;
         const centerIndex = Math.round(scrollPosition / ITEM_WIDTH);
-        const actualIndex = useInfiniteScroll
-          ? centerIndex % locations.length
-          : centerIndex;
+        const actualIndex = useInfiniteScroll ? centerIndex % locations.length : centerIndex;
 
         // Only update if changed and valid
         if (
@@ -82,11 +68,7 @@ export default function LocationCarousel({ locations, initialSlug }) {
 
           // Defer history update to not block render
           queueMicrotask(() => {
-            window.history.replaceState(
-              null,
-              "",
-              `/locations/${locations[actualIndex].currentSlug}`
-            );
+            window.history.replaceState(null, "", `/locations/${locations[actualIndex].currentSlug}`);
           });
         }
 
@@ -106,9 +88,7 @@ export default function LocationCarousel({ locations, initialSlug }) {
         if (centerIndex < OFFSET * 0.5 || centerIndex > OFFSET * 2.5) {
           isUpdatingRef.current = true;
           const actualIndex = centerIndex % locations.length;
-          const targetScroll =
-            (OFFSET + actualIndex) * ITEM_WIDTH -
-            (container.clientWidth / 2 - 141.5);
+          const targetScroll = (OFFSET + actualIndex) * ITEM_WIDTH - (container.clientWidth / 2 - 141.5);
           container.scrollLeft = targetScroll;
 
           // Allow scroll events again after repositioning
@@ -128,7 +108,9 @@ export default function LocationCarousel({ locations, initialSlug }) {
       container.removeEventListener("scroll", handleScroll);
       container.removeEventListener("scrollend", handleScrollEnd);
     };
-  }, [locations, useInfiniteScroll, OFFSET, ITEM_WIDTH]); // Removed activeIndex dependency
+  }, [locations, useInfiniteScroll, OFFSET, ITEM_WIDTH]);
+
+  if (!locations || locations.length === 0) return null;
 
   return (
     <div className="h-fit flex flex-col justify-center mt-[78.42px] pt-[21.6px]">
@@ -154,23 +136,20 @@ export default function LocationCarousel({ locations, initialSlug }) {
                 alt={location.title}
                 width={283}
                 height={302}
-                priority={
-                  idx ===
-                  (useInfiniteScroll ? OFFSET + activeIndex : activeIndex)
-                }
+                priority={idx === (useInfiniteScroll ? OFFSET + activeIndex : activeIndex)}
                 className="w-[283px] h-[302px] object-cover"
               />
             </div>
           ))}
         </div>
       </section>
-      {activeLocation.description && (
+      {activeLocation?.description && (
         <section className="mt-[327px]">
           <PortableText
             value={activeLocation.description}
             components={{
               block: {
-                normal: ({ children }) => <p className="!alt-p">{children}</p>,
+                normal: ({ children }) => <p className="alt-p">{children}</p>,
               },
             }}
           />
