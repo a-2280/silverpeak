@@ -14,7 +14,7 @@ export default function Hero() {
           height={80.88}
           className="lg:w-[241.111px] lg:h-[121px]"
         />
-        <Link href="/pageOne" className="lg:!text-[13px] !text-white">
+        <Link href="/locations" className="lg:!text-[13px] !text-white">
           Welcome
         </Link>
       </div>
