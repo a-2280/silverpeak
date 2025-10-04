@@ -246,6 +246,10 @@
   text-transform: none;
 }
 
+body {
+  overflow-y: hidden;
+}
+
 a {
   color: #000000;
   font-family: "IBM Plex Mono";
