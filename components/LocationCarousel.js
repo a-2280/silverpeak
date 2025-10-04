@@ -1,116 +1,123 @@
 "use client";
 
-import { useEffect, useRef, useState, useMemo } from "react";
+import { useEffect, useRef, useState } from "react";
 import Image from "next/image";
 import { urlFor } from "@/sanity/lib/image";
 import { PortableText } from "@portabletext/react";
 
 export default function LocationCarousel({ locations, initialSlug }) {
-  const initialIndex = locations?.findIndex(
-    (loc) => loc.currentSlug === initialSlug
-  ) ?? -1;
-  const [activeIndex, setActiveIndex] = useState(
-    initialIndex >= 0 ? initialIndex : 0
-  );
+  const initialIndex =
+    locations?.findIndex((loc) => loc.currentSlug === initialSlug) ?? 0;
+
+  const [activeIndex, setActiveIndex] = useState(initialIndex);
   const scrollRef = useRef(null);
-  const activeIndexRef = useRef(activeIndex);
-  const isUpdatingRef = useRef(false);
+  const lastScrollLeft = useRef(0);
+  const itemsRef = useRef([]);
 
-  const activeLocation = locations?.[activeIndex];
-  const useInfiniteScroll = (locations?.length ?? 0) >= 3;
-  const ITEM_WIDTH = 286;
-  const OFFSET = locations?.length ?? 0;
+  const ITEM_WIDTH = 286; // 283px + 3px gap
+  const BUFFER_COUNT = 3; // How many items to render on each side
 
-  const displayLocations = useMemo(
-    () => locations && useInfiniteScroll ? [...locations, ...locations, ...locations] : locations || [],
-    [locations, useInfiniteScroll]
-  );
-
-  // Keep ref in sync
-  useEffect(() => {
-    activeIndexRef.current = activeIndex;
-  }, [activeIndex]);
-
-  // Initial scroll position
   useEffect(() => {
     const container = scrollRef.current;
-    if (!container || !locations) return;
+    if (!container || !locations?.length) return;
 
-    const startIndex = useInfiniteScroll ? OFFSET + (initialIndex >= 0 ? initialIndex : 0) : (initialIndex >= 0 ? initialIndex : 0);
-    const targetScroll = startIndex * ITEM_WIDTH - (container.clientWidth / 2 - 141.5);
-    container.scrollLeft = targetScroll;
-  }, []); // eslint-disable-line react-hooks/exhaustive-deps
+    // Center the initial item
+    const centerScroll = container.clientWidth / 2 - 141.5;
+    container.scrollLeft = centerScroll;
+    lastScrollLeft.current = centerScroll;
 
-  // Handle scroll updates
+    // Position items initially
+    itemsRef.current.forEach((item, idx) => {
+      if (!item) return;
+      const offset = idx - BUFFER_COUNT;
+      const position = (initialIndex + offset) % locations.length;
+      const realPosition =
+        position < 0 ? position + locations.length : position;
+      item.dataset.logicalIndex = realPosition;
+      item.style.transform = `translateX(${offset * ITEM_WIDTH}px)`;
+    });
+  }, [locations, initialIndex, ITEM_WIDTH]);
+
   useEffect(() => {
     const container = scrollRef.current;
-    if (!container || !locations) return;
-
-    let rafId = null;
-    let scrollEndTimeout = null;
+    if (!container || !locations?.length) return;
 
     const handleScroll = () => {
-      if (rafId || isUpdatingRef.current) return;
+      const scrollLeft = container.scrollLeft;
+      const centerScroll = container.clientWidth / 2 - 141.5;
 
-      rafId = requestAnimationFrame(() => {
-        const scrollPosition = container.scrollLeft + container.clientWidth / 2;
-        const centerIndex = Math.round(scrollPosition / ITEM_WIDTH);
-        const actualIndex = useInfiniteScroll ? centerIndex % locations.length : centerIndex;
+      // Determine which item is centered
+      itemsRef.current.forEach((item) => {
+        if (!item) return;
 
-        // Only update if changed and valid
-        if (
-          activeIndexRef.current !== actualIndex &&
-          actualIndex >= 0 &&
-          actualIndex < locations.length
-        ) {
-          activeIndexRef.current = actualIndex;
-          setActiveIndex(actualIndex);
+        const currentTransform = parseFloat(
+          item.style.transform.match(/translateX\(([^)]+)px\)/)?.[1] || 0
+        );
+        const itemCenter = centerScroll + currentTransform;
+        const distanceFromCenter = Math.abs(itemCenter - scrollLeft);
 
-          // Defer history update to not block render
-          queueMicrotask(() => {
-            window.history.replaceState(null, "", `/locations/${locations[actualIndex].currentSlug}`);
-          });
+        // If this item is roughly centered, update active index
+        if (distanceFromCenter < ITEM_WIDTH / 2) {
+          const logicalIndex = parseInt(item.dataset.logicalIndex);
+          if (logicalIndex !== activeIndex) {
+            setActiveIndex(logicalIndex);
+            window.history.replaceState(
+              null,
+              "",
+              `/locations/${locations[logicalIndex].currentSlug}`
+            );
+          }
         }
-
-        rafId = null;
       });
-    };
 
-    const handleScrollEnd = () => {
-      if (!useInfiniteScroll) return;
+      // Reposition items that have scrolled too far in either direction
+      itemsRef.current.forEach((item) => {
+        if (!item) return;
 
-      clearTimeout(scrollEndTimeout);
-      scrollEndTimeout = setTimeout(() => {
-        const scrollPosition = container.scrollLeft + container.clientWidth / 2;
-        const centerIndex = Math.round(scrollPosition / ITEM_WIDTH);
+        const currentTransform = parseFloat(
+          item.style.transform.match(/translateX\(([^)]+)px\)/)?.[1] || 0
+        );
+        const itemLeft = centerScroll + currentTransform;
+        const viewportWidth = container.clientWidth;
 
-        // Reposition when near edges
-        if (centerIndex < OFFSET * 0.5 || centerIndex > OFFSET * 2.5) {
-          isUpdatingRef.current = true;
-          const actualIndex = centerIndex % locations.length;
-          const targetScroll = (OFFSET + actualIndex) * ITEM_WIDTH - (container.clientWidth / 2 - 141.5);
-          container.scrollLeft = targetScroll;
+        // If item is too far left, move it to the right
+        if (itemLeft < scrollLeft - viewportWidth) {
+          const newTransform =
+            currentTransform + (BUFFER_COUNT * 2 + 1) * ITEM_WIDTH;
+          item.style.transform = `translateX(${newTransform}px)`;
 
-          // Allow scroll events again after repositioning
-          requestAnimationFrame(() => {
-            isUpdatingRef.current = false;
-          });
+          const currentLogical = parseInt(item.dataset.logicalIndex);
+          const newLogical =
+            (currentLogical + BUFFER_COUNT * 2 + 1) % locations.length;
+          item.dataset.logicalIndex = newLogical;
         }
-      }, 150);
+        // If item is too far right, move it to the left
+        else if (itemLeft > scrollLeft + viewportWidth * 2) {
+          const newTransform =
+            currentTransform - (BUFFER_COUNT * 2 + 1) * ITEM_WIDTH;
+          item.style.transform = `translateX(${newTransform}px)`;
+
+          const currentLogical = parseInt(item.dataset.logicalIndex);
+          const newLogical = currentLogical - (BUFFER_COUNT * 2 + 1);
+          const wrapped =
+            newLogical < 0 ? newLogical + locations.length : newLogical;
+          item.dataset.logicalIndex = wrapped;
+        }
+      });
+
+      lastScrollLeft.current = scrollLeft;
     };
 
     container.addEventListener("scroll", handleScroll, { passive: true });
-    container.addEventListener("scrollend", handleScrollEnd, { passive: true });
-
-    return () => {
-      if (rafId) cancelAnimationFrame(rafId);
-      clearTimeout(scrollEndTimeout);
-      container.removeEventListener("scroll", handleScroll);
-      container.removeEventListener("scrollend", handleScrollEnd);
-    };
-  }, [locations, useInfiniteScroll, OFFSET, ITEM_WIDTH]);
+    return () => container.removeEventListener("scroll", handleScroll);
+  }, [locations, activeIndex, ITEM_WIDTH]);
 
   if (!locations || locations.length === 0) return null;
+
+  const activeLocation = locations[activeIndex];
+
+  // Render enough items to fill viewport + buffers
+  const renderItems = Array.from({ length: BUFFER_COUNT * 2 + 1 }, (_, i) => i);
 
   return (
     <div className="h-fit flex flex-col justify-center mt-[78.42px] pt-[21.6px]">
@@ -126,21 +133,37 @@ export default function LocationCarousel({ locations, initialSlug }) {
             msOverflowStyle: "none",
           }}
         >
-          {displayLocations.map((location, idx) => (
-            <div
-              key={`${location.currentSlug}-${idx}`}
-              className="snap-center h-[302px] w-[283px] flex-shrink-0"
-            >
-              <Image
-                src={urlFor(location.image).url()}
-                alt={location.title}
-                width={283}
-                height={302}
-                priority={idx === (useInfiniteScroll ? OFFSET + activeIndex : activeIndex)}
-                className="w-[283px] h-[302px] object-cover"
-              />
-            </div>
-          ))}
+          <div className="relative h-[302px]" style={{ width: "100%" }}>
+            {renderItems.map((i) => {
+              const offset = i - BUFFER_COUNT;
+              const position = (initialIndex + offset) % locations.length;
+              const realPosition =
+                position < 0 ? position + locations.length : position;
+              const location = locations[realPosition];
+
+              return (
+                <div
+                  key={i}
+                  ref={(el) => (itemsRef.current[i] = el)}
+                  data-logical-index={realPosition}
+                  className="snap-center h-[302px] w-[283px] absolute top-0 left-0"
+                  style={{
+                    transform: `translateX(${offset * ITEM_WIDTH}px)`,
+                    transition: "none",
+                  }}
+                >
+                  <Image
+                    src={urlFor(location.image).url()}
+                    alt={location.title}
+                    width={283}
+                    height={302}
+                    priority={realPosition === activeIndex}
+                    className="w-[283px] h-[302px] object-cover"
+                  />
+                </div>
+              );
+            })}
+          </div>
         </div>
       </section>
       {activeLocation?.description && (
@@ -149,7 +172,7 @@ export default function LocationCarousel({ locations, initialSlug }) {
             value={activeLocation.description}
             components={{
               block: {
-                normal: ({ children }) => <p className="alt-p">{children}</p>,
+                normal: ({ children }) => <p className="!alt-p">{children}</p>,
               },
             }}
           />
