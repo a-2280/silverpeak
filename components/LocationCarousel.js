@@ -2,7 +2,7 @@
 import { useRef, useEffect, useState } from "react";
 import { urlFor } from "@/sanity/lib/image";
 import Image from "next/image";
-import { PortableText } from "@portabletext/react";
+import { PortableText } from "next-sanity";
 
 export default function LocationCarousel({ locations }) {
   const scrollRef = useRef(null);
@@ -53,7 +53,7 @@ export default function LocationCarousel({ locations }) {
     <div className="flex flex-col h-screen">
       <div
         ref={scrollRef}
-        className="overflow-x-auto snap-x snap-mandatory no-scrollbar bg-red-400/25 mt-19.5 w-screen ml-[-25px]"
+        className="overflow-x-auto snap-x snap-mandatory no-scrollbar mt-19.5"
       >
         <div className="flex gap-[3px]">
           {tripled.map((location, index) => (
@@ -62,9 +62,7 @@ export default function LocationCarousel({ locations }) {
               className="flex-shrink-0 snap-center"
               data-carousel-item
             >
-              <div
-                className={focusedIndex === index ? "ml-[-20px]" : "invisible"}
-              >
+              <div className={focusedIndex === index ? "" : "invisible"}>
                 <h2 className="mb-[11px]">{location.title}</h2>
                 <p className="mb-[23px]">{location.subtitle}</p>
               </div>
@@ -79,7 +77,7 @@ export default function LocationCarousel({ locations }) {
           ))}
         </div>
       </div>
-      <div className="bg-blue-400/25 flex-1 overflow-y-auto mb-16 no-scrollbar">
+      <div className="flex-1 overflow-y-auto mb-16 mx-[25px] pt-[25px]">
         {currentLocation && currentLocation.description && (
           <PortableText value={currentLocation.description} />
         )}
