@@ -79,7 +79,14 @@ export default function LocationCarousel({ locations }) {
       </div>
       <div className="flex-1 overflow-y-auto mb-16 mx-[25px] pt-[25px]">
         {currentLocation && currentLocation.description && (
-          <PortableText value={currentLocation.description} />
+          <PortableText
+            value={currentLocation.description}
+            components={{
+              block: {
+                normal: ({ children }) => <p className="!alt-p">{children}</p>,
+              },
+            }}
+          />
         )}
       </div>
     </div>
