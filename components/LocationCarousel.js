@@ -77,7 +77,7 @@ export default function LocationCarousel({ locations }) {
           ))}
         </div>
       </div>
-      <div className="flex-1 overflow-y-auto mb-16 mx-[25px] pt-[25px]">
+      <div className="flex-1 overflow-y-auto mb-16 mx-[25px] py-[25px]">
         {currentLocation && currentLocation.description && (
           <PortableText
             value={currentLocation.description}
