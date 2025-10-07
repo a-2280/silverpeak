@@ -62,7 +62,13 @@ export default function LocationCarousel({ locations }) {
               className="flex-shrink-0 snap-center"
               data-carousel-item
             >
-              <div className={focusedIndex === index ? "" : "invisible"}>
+              <div
+                className={
+                  focusedIndex === index
+                    ? "absolute pt-[25px] w-screen left-0 pl-[25px]"
+                    : "invisible absolute"
+                }
+              >
                 <h2 className="mb-[11px]">{location.title}</h2>
                 <p className="mb-[23px]">{location.subtitle}</p>
               </div>
@@ -71,13 +77,13 @@ export default function LocationCarousel({ locations }) {
                 alt={location.title}
                 width={283}
                 height={302}
-                className="h-[302px] w-[283px] object-cover"
+                className="h-[302px] w-[283px] object-cover mt-[82px]"
               />
             </div>
           ))}
         </div>
       </div>
-      <div className="flex-1 overflow-y-auto mb-16 mx-[25px] py-[25px]">
+      <div className="flex-1 overflow-y-auto mb-16 mx-[25px] pt-[25px] pb-[30px] no-scrollbar">
         {currentLocation && currentLocation.description && (
           <PortableText
             value={currentLocation.description}
