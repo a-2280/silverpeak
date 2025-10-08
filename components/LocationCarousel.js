@@ -77,7 +77,7 @@ export default function LocationCarousel({ locations }) {
                 alt={location.title}
                 width={283}
                 height={302}
-                className="h-[302px] w-[283px] object-cover mt-[82px]"
+                className="h-[302px] max-[390px]:h-[202px] w-[283px] object-cover mt-[82px]"
               />
             </div>
           ))}

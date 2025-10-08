@@ -42,7 +42,7 @@ export default async function Locations() {
               width={387}
               height={412}
               priority
-              className="w-full h-auto max-h-[300px] min-h-[300px] object-cover mb-[20px]"
+              className="w-full h-auto max-h-[300px] min-h-[300px] max-[390px]:max-h-[200px] max-[390px]:min-h-[200px] object-cover mb-[20px]"
             />
           )}
           <div className="flex justify-between items-start">
