@@ -1,7 +1,7 @@
 import Locations from "@/components/Locations";
 import Link from "next/link";
 
-export default function pageOne() {
+export default function locations() {
   return (
     <div className="snap-y snap-mandatory overflow-y-auto no-scrollbar px-[25px]">
       <section className="h-screen w-full flex flex-col justify-center snap-center">
