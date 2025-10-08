@@ -13,7 +13,7 @@ export default async function about() {
 `);
 
   return (
-    <div className="w-screen flex flex-col items-start px-[25px] mt-[78.42px] mb-[88px]">
+    <div className="w-screen flex flex-col items-start px-[25px] mt-[78.42px] mb-[100px]">
       <h2 className="mb-[37px] mt-[25px]">{about.title}</h2>
       <div className="w-full mb-[25px]">
         {about.team?.map((member, i) => (
