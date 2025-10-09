@@ -286,6 +286,7 @@ button {
   text-decoration-thickness: auto;
   text-underline-offset: 33%; /* 3.3px */
   text-transform: uppercase;
+  cursor: pointer;
 }
 
 p {

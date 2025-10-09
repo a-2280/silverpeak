@@ -12,9 +12,9 @@ export default function Hero() {
           alt="Logo"
           width={161.166}
           height={80.88}
-          className="lg:w-[241.111px] lg:h-[121px]"
+          className="w-[161.166px] h-[80.88px] lg:w-[241.11px] lg:h-[121px]"
         />
-        <Link href="/locations" className="lg:!text-[13px] !text-white">
+        <Link href="/locations" className="!text-white lg:!text-[13px]">
           Welcome
         </Link>
       </div>
