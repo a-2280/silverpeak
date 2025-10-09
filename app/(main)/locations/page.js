@@ -4,7 +4,7 @@ import Locations from "@/components/Locations";
 import Link from "next/link";
 import { useState } from "react";
 
-export default function locations() {
+export default function LocationsPage() {
   const [isOpen, setIsOpen] = useState(false);
 
   return (

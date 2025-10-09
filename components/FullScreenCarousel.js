@@ -2,8 +2,9 @@
 
 import { useState, useEffect } from "react";
 
+const images = ["red.png", "blue.png", "green.png", "pink.png", "yellow.png"];
+
 export default function FullScreenCarousel() {
-  const images = ["red.png", "blue.png", "green.png", "pink.png", "yellow.png"];
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
   const [imagesLoaded, setImagesLoaded] = useState(false);
 
