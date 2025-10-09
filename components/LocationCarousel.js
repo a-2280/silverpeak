@@ -4,7 +4,7 @@ import { urlFor } from "@/sanity/lib/image";
 import Image from "next/image";
 import { PortableText } from "next-sanity";
 
-export default function LocationCarousel({ locations, slug }) {
+export default function LocationCarousel({ locations }) {
   const scrollRef = useRef(null);
   const [focusedIndex, setFocusedIndex] = useState(null);
 
@@ -12,18 +12,8 @@ export default function LocationCarousel({ locations, slug }) {
     const container = scrollRef.current;
     if (!container || locations.length === 0) return;
 
-    // Find the index of the location with the matching slug
-    const targetIndex = slug
-      ? locations.findIndex(loc => loc.currentSlug === slug)
-      : 0;
-
-    // Calculate the correct scroll position
-    // We want to scroll to the middle set + the target location
     const itemWidth = container.scrollWidth / 3;
-    const scrollToIndex = locations.length + (targetIndex !== -1 ? targetIndex : 0);
-    const targetScrollLeft = (scrollToIndex * itemWidth) / locations.length;
-
-    container.scrollLeft = targetScrollLeft;
+    container.scrollLeft = itemWidth;
 
     const handleScroll = () => {
       const { scrollLeft, scrollWidth } = container;
@@ -52,7 +42,7 @@ export default function LocationCarousel({ locations, slug }) {
     container.addEventListener("scroll", handleScroll);
     handleScroll(); // Initial call
     return () => container.removeEventListener("scroll", handleScroll);
-  }, [locations.length, slug]);
+  }, [locations.length]);
 
   const tripled = [...locations, ...locations, ...locations];
 
