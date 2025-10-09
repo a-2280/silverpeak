@@ -10,7 +10,7 @@ export default function locations() {
   return (
     <div className="snap-y snap-mandatory overflow-y-auto no-scrollbar px-[25px] lg:flex lg:justify-between lg:px-[57px]">
       <section
-        className={`h-screen w-full flex flex-col justify-center snap-center lg:flex-1 lg:justify-start lg:pt-[178.42px] ${isOpen ? "invisible" : ""}`}
+        className={`h-screen w-full flex flex-col justify-center snap-center lg:flex-1 lg:justify-start lg:pt-[178.42px] ease-out ${isOpen ? "opacity-0 translate-y-4 pointer-events-none" : "opacity-100 translate-y-0 transition-all duration-300"}`}
       >
         <div className="flex flex-col gap-[25px]">
           <h1 className="w-full max-w-[387px] lg:!text-[24px] lg:max-w-[458px]">

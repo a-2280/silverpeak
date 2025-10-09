@@ -102,9 +102,9 @@ export default function Locations({ isOpen, setIsOpen }) {
 
       {data[activeIndex] && (
         <div
-          className={`hidden lg:block lg:absolute lg:left-[57px] ${isOpen ? "lg:top-[555px]" : "lg:top-[511px]"} `}
+          className={`hidden lg:block lg:absolute lg:left-[57px] transition-all duration-300 ease-out ${isOpen ? "lg:top-[555px]" : "lg:top-[511px]"} `}
         >
-          <div className={`${isOpen ? "invisible" : ""}`}>
+          <div className={`ease-out ${isOpen ? "opacity-0 translate-y-4 pointer-events-none" : "opacity-100 translate-y-0 transition-all duration-300"}`}>
             <h2 className="mb-[13px] !text-[15px]">
               [{activeIndex + 1}] {data[activeIndex].title}
             </h2>
@@ -135,7 +135,7 @@ export default function Locations({ isOpen, setIsOpen }) {
             </button>
           </div>
           <div
-            className={`max-h-[420px] w-[481px] absolute top-[-375px] left-0 ${isOpen ? "flex flex-col" : "hidden"}`}
+            className={`max-h-[420px] w-[481px] absolute top-[-375px] left-0 flex flex-col ease-out ${isOpen ? "opacity-100 translate-y-0 transition-all duration-300" : "opacity-0 translate-y-4 pointer-events-none"}`}
           >
             <div className="">
               <h1 className="!text-[24px] max-w-[276px] mb-[25px]">
