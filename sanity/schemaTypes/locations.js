@@ -26,7 +26,14 @@ export default {
     {
       name: "image",
       type: "image",
-      title: "Image",
+      title: "Main Image",
+    },
+    {
+      name: "gallery",
+      type: "array",
+      title: "Gallery",
+      of: [{ type: "image" }],
+      description: "Add multiple images for the gallery",
     },
     {
       name: "attributes",

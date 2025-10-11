@@ -2,12 +2,10 @@
 
 import { client } from "@/sanity/lib/client";
 import { urlFor } from "@/sanity/lib/image";
-import { PortableText } from "next-sanity";
 import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useState } from "react";
-
-export const revalidate = 3600;
+import AboutMessage from "./AboutMessage";
 
 async function getData() {
   const query = `
@@ -16,6 +14,7 @@ async function getData() {
     subtitle,
     "currentSlug": slug.current,
     image,
+    gallery,
     attributes,
     description
 }
@@ -26,32 +25,39 @@ async function getData() {
   return data;
 }
 
-export default function Locations({ isOpen, setIsOpen }) {
+export default function Locations() {
   const [data, setData] = useState([]);
   const [activeIndex, setActiveIndex] = useState(0);
+  const [isTransitioning, setIsTransitioning] = useState(false);
 
   useEffect(() => {
     getData().then(setData);
   }, []);
 
   useEffect(() => {
-    const sections = document.querySelectorAll("section[data-location]");
-
+    const sections = document.querySelectorAll("[data-location]");
     const observer = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
           if (entry.isIntersecting) {
-            setActiveIndex(Number(entry.target.dataset.location));
+            const newIndex = parseInt(
+              entry.target.getAttribute("data-location")
+            );
+            if (newIndex !== activeIndex) {
+              setIsTransitioning(true);
+              setTimeout(() => {
+                setActiveIndex(newIndex);
+                setIsTransitioning(false);
+              }, 150);
+            }
           }
         });
       },
       { threshold: 0.5 }
     );
-
     sections.forEach((section) => observer.observe(section));
-
     return () => observer.disconnect();
-  }, [data]);
+  }, [data, activeIndex]);
 
   return (
     <div className="h-max flex flex-col justify-center lg:flex-1">
@@ -97,69 +103,50 @@ export default function Locations({ isOpen, setIsOpen }) {
             </ul>
             <Link href={`/locations/${location.currentSlug}`}>read more</Link>
           </div>
+          {activeIndex === index && (
+            <div className="hidden lg:flex flex-col absolute top-[177px] left-[57px] pointer-events-none gap-[186px]">
+              <AboutMessage />
+              <div
+                className={`transition-all duration-100 ${
+                  isTransitioning
+                    ? "opacity-0 translate-x-[2px]"
+                    : "opacity-100 translate-x-0"
+                }`}
+              >
+                <h2 className={`mb-[13px] !text-[15px]`}>
+                  [{index + 1}] {location.title}
+                </h2>
+                <p className="mb-[25px] !text-[13px]">{location.subtitle}</p>
+                <div className="flex flex-col gap-[25px] justify-between items-start">
+                  <ul>
+                    {location.attributes?.map((attr, i) => (
+                      <li
+                        key={i}
+                        className="flex items-center gap-[4.64px] !text-[15px]"
+                      >
+                        <Image
+                          src="/arrow.svg"
+                          alt="arrow"
+                          width={15}
+                          height={15}
+                          className="scale-x-[-1]"
+                        />
+                        {attr}
+                      </li>
+                    ))}
+                  </ul>
+                  <Link
+                    href={`/locations/${location.currentSlug}`}
+                    className="!text-[13px] pointer-events-auto"
+                  >
+                    read more
+                  </Link>
+                </div>
+              </div>
+            </div>
+          )}
         </section>
       ))}
-
-      {data[activeIndex] && (
-        <div
-          className={`hidden lg:block lg:absolute lg:left-[57px] transition-all duration-300 ease-out ${isOpen ? "lg:top-[555px]" : "lg:top-[511px]"} `}
-        >
-          <div className={`ease-out ${isOpen ? "opacity-0 translate-y-4 pointer-events-none" : "opacity-100 translate-y-0 transition-all duration-300"}`}>
-            <h2 className="mb-[13px] !text-[15px]">
-              [{activeIndex + 1}] {data[activeIndex].title}
-            </h2>
-            <p className="mb-[25px] !text-[13px]">
-              {data[activeIndex].subtitle}
-            </p>
-          </div>
-          <div>
-            <ul className="mb-[25px]">
-              {data[activeIndex].attributes?.map((attr, i) => (
-                <li
-                  key={i}
-                  className="flex items-center gap-[10px] !text-[15px]"
-                >
-                  <Image
-                    src="/arrow.svg"
-                    alt="arrow"
-                    width={15}
-                    height={15}
-                    className="scale-x-[-1] "
-                  />
-                  {attr}
-                </li>
-              ))}
-            </ul>
-            <button className="!text-[13px]" onClick={() => setIsOpen(!isOpen)}>
-              {isOpen ? "read less" : "read more"}
-            </button>
-          </div>
-          <div
-            className={`max-h-[420px] w-[481px] absolute top-[-375px] left-0 flex flex-col ease-out ${isOpen ? "opacity-100 translate-y-0 transition-all duration-300" : "opacity-0 translate-y-4 pointer-events-none"}`}
-          >
-            <div className="">
-              <h1 className="!text-[24px] max-w-[276px] mb-[25px]">
-                {data[activeIndex].title}
-              </h1>
-              <p className="mb-[25px] !text-[13px]">
-                {data[activeIndex].subtitle}
-              </p>
-            </div>
-            <div className="max-h-[325px] overflow-y-scroll no-scrollbar">
-              <PortableText
-                value={data[activeIndex].description}
-                components={{
-                  block: {
-                    normal: ({ children }) => (
-                      <p className="!alt-p">{children}</p>
-                    ),
-                  },
-                }}
-              />
-            </div>
-          </div>
-        </div>
-      )}
     </div>
   );
 }
