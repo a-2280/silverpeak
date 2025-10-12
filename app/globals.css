@@ -229,6 +229,7 @@
 @theme {
   --font-figtree: "Figtree", ui-sans-serif, system-ui, sans-serif;
   --font-ibm: "IBM Plex Mono", ui-monospace, monospace;
+  --color-blue: #0078b0;
 }
 
 @utility no-scrollbar {
@@ -275,7 +276,7 @@ a {
 button {
   color: #000;
   font-family: "IBM Plex Mono";
-  font-size: 10px;
+  font-size: 11px;
   font-style: normal;
   font-weight: 400;
   line-height: 15px; /* 150% */
@@ -328,4 +329,69 @@ li {
   font-weight: 400;
   line-height: 18.333px; /* 166.667% */
   letter-spacing: 0.55px;
+}
+
+label {
+  height: 100%;
+}
+
+label p {
+  color: #fff;
+  font-family: "Figtree";
+  font-size: 13px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 1rem;
+  letter-spacing: 0.65px;
+  text-transform: none;
+  margin-bottom: 8px;
+}
+
+input,
+textarea {
+  background-color: #fff;
+  width: 100%;
+  padding: 7px 12px;
+  font-family: "Figtree";
+}
+
+input {
+  height: 41px;
+}
+
+textarea {
+  min-height: 41px;
+  max-height: 150px;
+}
+
+input::placeholder,
+textarea::placeholder {
+  color: rgba(0, 120, 176, 0.4);
+  font-family: "IBM Plex Mono";
+  font-size: 13px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 27px; /* 207.692% */
+  letter-spacing: 0.65px;
+}
+
+input:focus,
+textarea:focus {
+  outline: 0;
+}
+
+form button {
+  color: #fff;
+  font-family: "IBM Plex Mono";
+  font-size: 13px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 27px; /* 207.692% */
+  letter-spacing: 0.65px;
+  text-decoration-line: underline;
+  text-decoration-style: solid;
+  text-decoration-skip-ink: auto;
+  text-decoration-thickness: auto;
+  text-underline-offset: 33%; /* 4.29px */
+  text-underline-position: from-font;
 }
