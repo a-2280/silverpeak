@@ -34,7 +34,7 @@ export default function FullScreenCarousel() {
 
   return (
     <div
-      className="w-screen h-screen bg-no-repeat bg-center bg-cover transition-all duration-1000 ease-in-out"
+      className="w-screen h-[100dvh] bg-no-repeat bg-center bg-cover transition-all duration-1000 ease-in-out"
       style={{ backgroundImage: `url(/${images[currentImageIndex]})` }}
     ></div>
   );

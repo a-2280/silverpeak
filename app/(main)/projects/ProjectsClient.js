@@ -10,7 +10,7 @@ export default function ProjectsClient({ projects, locations }) {
   const [hoveredImage, setHoveredImage] = useState(null);
 
   return (
-    <div className="lg:flex lg:h-screen">
+    <div className="lg:flex lg:h-[100dvh]">
       <div className="w-screen flex flex-col items-start px-[25px] mt-[78.42px] mb-[78px] lg:w-1/2 lg:px-[57px] lg:justify-center">
         <h1 className="mb-[59px] mt-[57px] hidden lg:flex !text-[24px]">
           {projects.title}

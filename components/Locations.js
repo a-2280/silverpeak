@@ -65,7 +65,7 @@ export default function Locations() {
         <section
           key={index}
           data-location={index}
-          className="h-screen flex flex-col justify-center snap-center lg:snap-start lg:h-fit"
+          className="h-[100dvh] flex flex-col justify-center snap-center lg:snap-start lg:h-fit"
         >
           <h2 className="mb-[11px] lg:hidden">
             [{index + 1}] {location.title}

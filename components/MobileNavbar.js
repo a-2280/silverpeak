@@ -57,7 +57,7 @@ export default function MobileNavbar({ onClose }) {
           </li>
         </ul>
         <div
-          className="flex justify-between items-center"
+          className="flex justify-between items-center gap-[10px]"
           onClick={(e) => e.stopPropagation()}
         >
           <p className="text-nowrap !text-[10px] !text-white">

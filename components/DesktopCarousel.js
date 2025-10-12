@@ -4,7 +4,7 @@ import { PortableText } from "next-sanity";
 
 export default function DestopCarousel({ currentLocation }) {
   return (
-    <div className="hidden lg:flex h-screen w-screen no-scrollbar">
+    <div className="hidden lg:flex h-[100dvh] w-screen no-scrollbar">
       <div className="min-w-1/2 max-w-1/2 flex-1 flex flex-col justify-center px-[57px]">
         <h1 className="!text-[24px] max-w-[276px] mb-[25px] mt-[57px]">
           {currentLocation?.title}

@@ -52,7 +52,7 @@ export default function LocationCarousel({ locations, currentLocation }) {
 
   return (
     <>
-      <div className="flex flex-col h-screen lg:hidden">
+      <div className="flex flex-col h-[100dvh] lg:hidden">
         <div
           ref={scrollRef}
           className="overflow-x-auto snap-x snap-mandatory no-scrollbar mt-19.5"

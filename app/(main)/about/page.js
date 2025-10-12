@@ -14,7 +14,7 @@ export default async function about() {
 `);
 
   return (
-    <div className="lg:flex lg:justify-start lg:items-center lg:h-screen lg:w-screen lg:px-[57px]">
+    <div className="lg:flex lg:justify-start lg:items-center lg:h-[100dvh] lg:w-screen lg:px-[57px]">
       <div className="w-screen flex flex-col items-start px-[25px] mt-[78.42px] pb-[100px] lg:w-1/2 lg:px-0">
         <h1 className="mb-[59px] mt-[0px] hidden !text-[24px] lg:flex">
           {about.title}
