@@ -11,7 +11,7 @@ export default function MobileNavbar({ onClose }) {
   return (
     <>
       <div
-        className="bg-blue h-screen w-screen absolute z-30 p-[28px] flex flex-col justify-between"
+        className="bg-blue h-[100dvh] w-screen absolute z-30 p-[28px] flex flex-col justify-between"
         onClick={onClose}
       >
         <Link href="/locations">
@@ -29,17 +29,29 @@ export default function MobileNavbar({ onClose }) {
           onClick={(e) => e.stopPropagation()}
         >
           <li>
-            <Link href="/locations" className="!text-[20px] !text-white" onClick={onClose}>
+            <Link
+              href="/locations"
+              className="!text-[20px] !text-white"
+              onClick={onClose}
+            >
               Home
             </Link>
           </li>
           <li>
-            <Link href="/projects" className="!text-[20px] !text-white" onClick={onClose}>
+            <Link
+              href="/projects"
+              className="!text-[20px] !text-white"
+              onClick={onClose}
+            >
               Projects
             </Link>
           </li>
           <li>
-            <Link href="/about" className="!text-[20px] !text-white" onClick={onClose}>
+            <Link
+              href="/about"
+              className="!text-[20px] !text-white"
+              onClick={onClose}
+            >
               About
             </Link>
           </li>
