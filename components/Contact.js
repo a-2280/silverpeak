@@ -3,7 +3,7 @@
 export default function Contact({ onClose }) {
   return (
     <div
-      className="h-[100dvh] w-screen absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-50 p-8 flex justify-center items-center"
+      className="h-[100dvh] w-screen absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-50 p-8 flex justify-center items-center overflow-y-scroll"
       onClick={onClose}
     >
       <form
