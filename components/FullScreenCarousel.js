@@ -30,7 +30,7 @@ export default function FullScreenCarousel() {
     }, 3000);
 
     return () => clearInterval(interval);
-  }, [images.length, imagesLoaded]);
+  }, [imagesLoaded]);
 
   return (
     <div

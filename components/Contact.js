@@ -13,7 +13,7 @@ export default function Contact({ onClose }) {
         onClick={(e) => e.stopPropagation()}
       >
         <h1 className="!text-white mb-[29px] lg:max-w-[508px] lg:!text-[24px]">
-          Have a project you'd like us to take a look at? Let's talk.
+          Have a project you&apos;d like us to take a look at? Let&apos;s talk.
         </h1>
         <div className="flex flex-col gap-[17px] mb-[64px] lg:grid lg:grid-cols-2 lg:gap-x-[55px]">
           <label>
