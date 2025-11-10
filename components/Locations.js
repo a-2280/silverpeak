@@ -81,7 +81,7 @@ export default function Locations() {
                 priority={index < 3}
                 quality={100}
                 sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 807px"
-                className={`w-full h-auto max-h-[300px] min-h-[300px] max-[390px]:max-h-[200px] max-[390px]:min-h-[200px] object-cover mb-[20px] lg:max-h-[781.184px] lg:min-h-[781.184px] ${index === data.length - 1 ? 'lg:mb-0' : 'lg:mb-[9px]'}`}
+                className={`w-full h-auto max-h-[300px] min-h-[300px] max-[390px]:max-h-[200px] max-[390px]:min-h-[200px] object-cover mb-[20px] lg:max-h-[781.184px] lg:min-h-[781.184px] ${index === data.length - 1 ? "lg:mb-0" : "lg:mb-[9px]"}`}
               />
             </div>
           )}

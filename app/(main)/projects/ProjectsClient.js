@@ -39,7 +39,7 @@ export default function ProjectsClient({ projects, locations }) {
             </div>
           ))}
         </div>
-        <div className="lg:mb-[73px] lg:max-w-[585px] lg:max-h-[340px] overflow-y-scroll no-scrollbar">
+        <div className="lg:mb-[73px] lg:max-w-[585px] lg:max-h-[340px] overflow-y-scroll no-scrollbar bg-red-400">
           <PortableText
             value={projects.main}
             components={{

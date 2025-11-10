@@ -7,6 +7,7 @@ import DestopCarousel from "./DesktopCarousel";
 
 export default function LocationCarousel({ locations, currentLocation }) {
   const scrollRef = useRef(null);
+  const descriptionRef = useRef(null);
   const [focusedIndex, setFocusedIndex] = useState(null);
 
   useEffect(() => {
@@ -44,6 +45,13 @@ export default function LocationCarousel({ locations, currentLocation }) {
     handleScroll(); // Initial call
     return () => container.removeEventListener("scroll", handleScroll);
   }, [locations.length]);
+
+  // Scroll description back to top when location changes
+  useEffect(() => {
+    if (descriptionRef.current) {
+      descriptionRef.current.scrollTop = 0;
+    }
+  }, [focusedIndex]);
 
   const tripled = [...locations, ...locations, ...locations];
 
@@ -85,7 +93,7 @@ export default function LocationCarousel({ locations, currentLocation }) {
             ))}
           </div>
         </div>
-        <div className="flex-1 overflow-y-auto mb-16 mx-[25px] pt-[25px] pb-[63px] no-scrollbar">
+        <div ref={descriptionRef} className="flex-1 overflow-y-auto mb-16 mx-[25px] pt-[25px] pb-[63px] no-scrollbar">
           {mobileCurrentLocation && mobileCurrentLocation.description && (
             <PortableText
               value={mobileCurrentLocation.description}
