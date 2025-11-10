@@ -11,10 +11,14 @@ export default async function LocationDetailPage({ params }) {
     image,
     description,
     attributes,
-    gallery[]
+    gallery[],
+    construction,
+    squareFootage
   }`);
 
-  const currentLocation = locations.find(loc => loc.currentSlug === slug);
+  const currentLocation = locations.find((loc) => loc.currentSlug === slug);
 
-  return <LocationCarousel locations={locations} currentLocation={currentLocation} />;
+  return (
+    <LocationCarousel locations={locations} currentLocation={currentLocation} />
+  );
 }

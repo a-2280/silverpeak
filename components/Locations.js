@@ -9,7 +9,7 @@ import AboutMessage from "./AboutMessage";
 
 async function getData() {
   const query = `
-    *[_type == 'location'] | order(_createdAt asc) {
+    *[_type == 'location'] | order(coalesce(orderRank, _createdAt)) {
   title,
     subtitle,
     "currentSlug": slug.current,
@@ -74,16 +74,15 @@ export default function Locations() {
           {location.image && (
             <div className="relative">
               <Image
-                src={urlFor(location.image).url()}
+                src={urlFor(location.image).quality(100).url()}
                 alt={location.title}
-                width={387}
-                height={412}
-                priority
-                className="w-full h-auto max-h-[300px] min-h-[300px] max-[390px]:max-h-[200px] max-[390px]:min-h-[200px] object-cover mb-[20px] lg:max-h-[781.184px] lg:min-h-[781.184px] lg:mb-[10px]"
+                width={1614}
+                height={1562}
+                priority={index < 3}
+                quality={100}
+                sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 807px"
+                className={`w-full h-auto max-h-[300px] min-h-[300px] max-[390px]:max-h-[200px] max-[390px]:min-h-[200px] object-cover mb-[20px] lg:max-h-[781.184px] lg:min-h-[781.184px] ${index === data.length - 1 ? 'lg:mb-0' : 'lg:mb-[9px]'}`}
               />
-              <p className="hidden !text-[13px] lg:block lg:absolute bottom-3 left-[-42px]">
-                [{index + 1}]
-              </p>
             </div>
           )}
           <div className="flex justify-between items-start lg:hidden">
@@ -104,7 +103,7 @@ export default function Locations() {
             <Link href={`/locations/${location.currentSlug}`}>read more</Link>
           </div>
           {activeIndex === index && (
-            <div className="hidden lg:flex flex-col absolute top-[177px] left-[57px] pointer-events-none gap-[186px]">
+            <div className="hidden lg:flex flex-col absolute top-[176px] left-[25px] pointer-events-none gap-[65px]">
               <AboutMessage />
               <div
                 className={`transition-all duration-100 ${
@@ -113,9 +112,7 @@ export default function Locations() {
                     : "opacity-100 translate-x-0"
                 }`}
               >
-                <h2 className={`mb-[13px] !text-[15px]`}>
-                  [{index + 1}] {location.title}
-                </h2>
+                <h2 className={`mb-[13px] !text-[15px]`}>{location.title}</h2>
                 <p className="mb-[25px] !text-[13px]">{location.subtitle}</p>
                 <div className="flex flex-col gap-[25px] justify-between items-start">
                   <ul>

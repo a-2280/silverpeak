@@ -2,35 +2,19 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { usePathname } from "next/navigation";
 import MobileNavbar from "./MobileNavbar";
 
 export default function Navbar() {
   const [open, setOpen] = useState(false);
+  const [isClosing, setIsClosing] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const pathname = usePathname();
-
-  const handleClick = () => {
-    setOpen(!open);
-  };
 
   const handleMobileClick = () => {
     setMobileMenuOpen(!mobileMenuOpen);
   };
-
-  useEffect(() => {
-    if (open) {
-      const handleClickOutside = (e) => {
-        const target = e.target;
-        if (!target.closest("a")) {
-          setOpen(false);
-        }
-      };
-      document.addEventListener("click", handleClickOutside);
-      return () => document.removeEventListener("click", handleClickOutside);
-    }
-  }, [open]);
 
   return (
     <>
@@ -44,44 +28,59 @@ export default function Navbar() {
             className="w-[114px] h-[20.4px]"
           ></Image>
         </Link>
-        <div className="lg:absolute lg:left-[57px] lg:top-0">
+        <div
+          className="lg:absolute lg:left-[25px] lg:top-0"
+          onMouseEnter={() => {
+            if (window.innerWidth >= 1024) {
+              setIsClosing(false);
+              setOpen(true);
+            }
+          }}
+          onMouseLeave={() => {
+            if (window.innerWidth >= 1024) {
+              setOpen(false);
+              setIsClosing(true);
+              setTimeout(() => {
+                setIsClosing(false);
+              }, 300);
+            }
+          }}
+        >
           <button
             className={`lg:!text-[13px] ${open ? "invisible" : ""} lg:${open ? "invisible" : ""}`}
-            onClick={() => {
-              // On mobile, toggle mobile menu; on desktop, toggle desktop menu
-              if (window.innerWidth < 1024) {
-                handleMobileClick();
-              } else {
-                handleClick();
-              }
-            }}
+            onClick={handleMobileClick}
           >
             Menu
           </button>
           <ul
-            className={`mt-[-1.1rem] flex gap-[38px] ${open ? "" : "hidden"}`}
-            onClick={(e) => e.stopPropagation()}
+            className={`mt-[-1.1rem] flex gap-[38px] ${open || isClosing ? "" : "hidden"}`}
           >
-            <li>
+            <li className={open ? "" : "opacity-0"}>
               <Link
                 href="/locations"
-                className={`!text-[13px] ${pathname === "/locations" ? "!text-blue" : ""}`}
+                className={`!text-[13px] hover:!text-blue ${pathname === "/locations" ? "!text-blue" : ""}`}
               >
                 Home
               </Link>
             </li>
-            <li>
+            <li
+              className={open ? "animate-slideIn" : isClosing ? "animate-slideOutRight" : "opacity-0"}
+              style={{ animationDelay: open ? "0.1s" : "0.1s" }}
+            >
               <Link
                 href="/projects"
-                className={`!text-[13px] ${pathname === "/projects" ? "!text-blue" : ""}`}
+                className={`!text-[13px] hover:!text-blue ${pathname === "/projects" ? "!text-blue" : ""}`}
               >
                 Projects
               </Link>
             </li>
-            <li>
+            <li
+              className={open ? "animate-slideIn" : isClosing ? "animate-slideOutRight" : "opacity-0"}
+              style={{ animationDelay: open ? "0.2s" : "0s" }}
+            >
               <Link
                 href="/about"
-                className={`!text-[13px] ${pathname === "/about" ? "!text-blue" : ""}`}
+                className={`!text-[13px] hover:!text-blue ${pathname === "/about" ? "!text-blue" : ""}`}
               >
                 About
               </Link>

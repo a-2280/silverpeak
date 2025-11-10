@@ -2,7 +2,20 @@ export default {
   name: "location",
   type: "document",
   title: "Location",
+  orderings: [
+    {
+      title: "Manual order",
+      name: "manualOrder",
+      by: [{ field: "orderRank", direction: "asc" }],
+    },
+  ],
   fields: [
+    {
+      name: "orderRank",
+      type: "string",
+      title: "Order Rank",
+      hidden: true,
+    },
     {
       name: "title",
       type: "string",
@@ -12,7 +25,7 @@ export default {
     {
       name: "subtitle",
       type: "string",
-      title: "Year and Location",
+      title: "Location",
       placeholder: "2021, St. George, ut",
     },
     {
@@ -24,6 +37,18 @@ export default {
       },
     },
     {
+      name: "construction",
+      type: "string",
+      title: "Construction Type",
+      placeholder: "CMU & Steel",
+    },
+    {
+      name: "squareFootage",
+      type: "string",
+      title: "Square Footage",
+      placeholder: "55,000",
+    },
+    {
       name: "image",
       type: "image",
       title: "Main Image",
@@ -32,7 +57,37 @@ export default {
       name: "gallery",
       type: "array",
       title: "Gallery",
-      of: [{ type: "image" }],
+      of: [
+        {
+          type: "object",
+          fields: [
+            {
+              name: "image",
+              type: "image",
+              title: "Image",
+            },
+            {
+              name: "pairWithNext",
+              type: "boolean",
+              title: "Pair with next image",
+              description: "Display this image side-by-side with the next one (9px gap)",
+              initialValue: false,
+            },
+          ],
+          preview: {
+            select: {
+              media: "image",
+              pairWithNext: "pairWithNext",
+            },
+            prepare({ media, pairWithNext }) {
+              return {
+                title: pairWithNext ? "Image (paired with next)" : "Image",
+                media,
+              };
+            },
+          },
+        },
+      ],
       description: "Add multiple images for the gallery",
     },
     {

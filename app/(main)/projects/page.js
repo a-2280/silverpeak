@@ -10,7 +10,7 @@ export default async function ProjectsPage() {
   `);
 
   const locations = await client.fetch(`
-    *[_type == 'location'] | order(_createdAt asc) {
+    *[_type == 'location'] | order(coalesce(orderRank, _createdAt)) {
       title,
       "currentSlug": slug.current,
       image,

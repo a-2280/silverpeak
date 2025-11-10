@@ -13,7 +13,7 @@ export default function Footer() {
 
   return (
     <>
-      <div className="w-full fixed bottom-0 left-0 flex justify-between items-center py-[19px] px-[28px] bg-white flex-wrap z-10 lg:bg-transparent lg:flex-row lg:items-start">
+      <div className="w-full fixed bottom-0 left-0 flex justify-between items-center py-[19px] px-[25px] bg-white flex-wrap z-10 lg:bg-transparent lg:flex-row lg:items-start">
         <div className="lg:flex lg:flex-col lg:gap-[10px] lg:w-1/2">
           <p className="text-nowrap lg:!text-[13px]">
             +1 (801) 499 5045 /{" "}
