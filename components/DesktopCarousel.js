@@ -102,24 +102,26 @@ export default function DestopCarousel({ currentLocation }) {
                       className={`flex w-full ${i + 1 < currentLocation.gallery.length - 1 ? "mb-[10px]" : ""}`}
                       style={{ gap: "9px" }}
                     >
-                      <div className="flex-1 relative w-full h-auto">
+                      <div className="flex-1 relative w-full h-auto bg-gray-200">
                         <Image
                           src={urlFor(current.image).quality(100).url()}
                           alt={`${currentLocation.title} - Gallery image ${i + 1}`}
                           width={798}
                           height={1562}
                           quality={100}
+                          unoptimized
                           className="w-full h-auto object-cover cursor-pointer"
                           onClick={() => setHideCarousel(false)}
                         />
                       </div>
-                      <div className="flex-1 relative w-full h-auto">
+                      <div className="flex-1 relative w-full h-auto bg-gray-200">
                         <Image
                           src={urlFor(next.image).quality(100).url()}
                           alt={`${currentLocation.title} - Gallery image ${i + 2}`}
                           width={798}
                           height={1562}
                           quality={100}
+                          unoptimized
                           className="w-full h-auto object-cover cursor-pointer"
                           onClick={() => setHideCarousel(false)}
                         />
@@ -130,16 +132,18 @@ export default function DestopCarousel({ currentLocation }) {
                 } else if (current?.image) {
                   // Single image
                   rows.push(
-                    <Image
-                      key={i}
-                      src={urlFor(current.image).quality(100).url()}
-                      alt={`${currentLocation.title} - Gallery image ${i + 1}`}
-                      width={1614}
-                      height={1562}
-                      quality={100}
-                      className={`w-full h-auto object-cover cursor-pointer ${i < currentLocation.gallery.length - 1 ? "mb-[10px]" : ""}`}
-                      onClick={() => setHideCarousel(false)}
-                    />
+                    <div key={i} className={`relative w-full bg-gray-200 ${i < currentLocation.gallery.length - 1 ? "mb-[10px]" : ""}`}>
+                      <Image
+                        src={urlFor(current.image).quality(100).url()}
+                        alt={`${currentLocation.title} - Gallery image ${i + 1}`}
+                        width={1614}
+                        height={1562}
+                        quality={100}
+                        unoptimized
+                        className="w-full h-auto object-cover cursor-pointer"
+                        onClick={() => setHideCarousel(false)}
+                      />
+                    </div>
                   );
                   i += 1;
                 } else {
