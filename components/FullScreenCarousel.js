@@ -1,41 +1,82 @@
 "use client";
 
 import { useState, useEffect } from "react";
+import { client } from "@/sanity/lib/client";
+import { urlFor } from "@/sanity/lib/image";
+import Image from "next/image";
 
-const images = ["red.png", "blue.png", "green.png", "pink.png", "yellow.png"];
+async function getLocationImages() {
+  const query = `
+    *[_type == 'location'] | order(coalesce(orderRank, _createdAt)) {
+      image
+    }
+  `;
+  const data = await client.fetch(query);
+  return data.map((location) => urlFor(location.image).quality(100).url()).filter(Boolean);
+}
 
 export default function FullScreenCarousel() {
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
-  const [imagesLoaded, setImagesLoaded] = useState(false);
+  const [images, setImages] = useState([]);
+  const [loadedImages, setLoadedImages] = useState(new Set([0]));
 
-  // Preload all images
+  // Fetch location images from Sanity
   useEffect(() => {
-    const imagePromises = images.map((src) => {
-      return new Promise((resolve, reject) => {
-        const img = new Image();
-        img.src = `/${src}`;
-        img.onload = resolve;
-        img.onerror = reject;
-      });
+    getLocationImages().then((locationImages) => {
+      setImages(locationImages);
     });
-
-    Promise.all(imagePromises).then(() => setImagesLoaded(true));
   }, []);
 
+  // Preload next image in background
   useEffect(() => {
-    if (!imagesLoaded) return;
+    if (images.length === 0) return;
+
+    const nextIndex = (currentImageIndex + 1) % images.length;
+    if (!loadedImages.has(nextIndex)) {
+      const img = document.createElement('img');
+      img.src = images[nextIndex];
+      img.onload = () => {
+        setLoadedImages((prev) => new Set([...prev, nextIndex]));
+      };
+    }
+  }, [currentImageIndex, images, loadedImages]);
+
+  // Start carousel only after first image and next image are loaded
+  useEffect(() => {
+    if (images.length === 0 || !loadedImages.has(0)) return;
 
     const interval = setInterval(() => {
-      setCurrentImageIndex((prevIndex) => (prevIndex + 1) % images.length);
+      setCurrentImageIndex((prevIndex) => {
+        const nextIndex = (prevIndex + 1) % images.length;
+        // Only advance if next image is loaded
+        if (loadedImages.has(nextIndex)) {
+          return nextIndex;
+        }
+        return prevIndex;
+      });
     }, 3000);
 
     return () => clearInterval(interval);
-  }, [imagesLoaded]);
+  }, [images.length, loadedImages]);
+
+  if (images.length === 0) return null;
 
   return (
-    <div
-      className="w-screen h-[100dvh] bg-no-repeat bg-center bg-cover transition-all duration-1000 ease-in-out"
-      style={{ backgroundImage: `url(/${images[currentImageIndex]})` }}
-    ></div>
+    <div className="w-screen h-[100dvh] relative">
+      {images.map((image, index) => (
+        <Image
+          key={index}
+          src={image}
+          alt={`Location ${index + 1}`}
+          fill
+          priority={index === 0}
+          quality={100}
+          className={`object-cover transition-opacity duration-1000 ease-in-out ${
+            index === currentImageIndex ? "opacity-100" : "opacity-0"
+          }`}
+          sizes="100vw"
+        />
+      ))}
+    </div>
   );
 }

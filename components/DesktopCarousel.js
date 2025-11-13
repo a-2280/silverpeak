@@ -99,29 +99,31 @@ export default function DestopCarousel({ currentLocation }) {
                   rows.push(
                     <div
                       key={i}
-                      className={`flex ${i + 1 < currentLocation.gallery.length - 1 ? "mb-[10px]" : ""}`}
+                      className={`flex w-full ${i + 1 < currentLocation.gallery.length - 1 ? "mb-[10px]" : ""}`}
                       style={{ gap: "9px" }}
                     >
-                      <Image
-                        src={urlFor(current.image).quality(100).url()}
-                        alt={`${currentLocation.title} - Gallery image ${i + 1}`}
-                        width={798}
-                        height={1562}
-                        quality={100}
-                        priority={i === 0}
-                        className="flex-1 w-full h-auto object-cover cursor-pointer"
-                        onClick={() => setHideCarousel(false)}
-                      />
-                      <Image
-                        src={urlFor(next.image).quality(100).url()}
-                        alt={`${currentLocation.title} - Gallery image ${i + 2}`}
-                        width={798}
-                        height={1562}
-                        quality={100}
-                        priority={i === 0}
-                        className="flex-1 w-full h-auto object-cover cursor-pointer"
-                        onClick={() => setHideCarousel(false)}
-                      />
+                      <div className="flex-1 relative w-full h-auto">
+                        <Image
+                          src={urlFor(current.image).quality(100).url()}
+                          alt={`${currentLocation.title} - Gallery image ${i + 1}`}
+                          width={798}
+                          height={1562}
+                          quality={100}
+                          className="w-full h-auto object-cover cursor-pointer"
+                          onClick={() => setHideCarousel(false)}
+                        />
+                      </div>
+                      <div className="flex-1 relative w-full h-auto">
+                        <Image
+                          src={urlFor(next.image).quality(100).url()}
+                          alt={`${currentLocation.title} - Gallery image ${i + 2}`}
+                          width={798}
+                          height={1562}
+                          quality={100}
+                          className="w-full h-auto object-cover cursor-pointer"
+                          onClick={() => setHideCarousel(false)}
+                        />
+                      </div>
                     </div>
                   );
                   i += 2;
@@ -135,7 +137,6 @@ export default function DestopCarousel({ currentLocation }) {
                       width={1614}
                       height={1562}
                       quality={100}
-                      priority={i === 0}
                       className={`w-full h-auto object-cover cursor-pointer ${i < currentLocation.gallery.length - 1 ? "mb-[10px]" : ""}`}
                       onClick={() => setHideCarousel(false)}
                     />
