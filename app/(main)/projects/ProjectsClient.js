@@ -11,8 +11,8 @@ export default function ProjectsClient({ projects, locations }) {
 
   return (
     <div className="lg:flex lg:h-[100dvh]">
-      <div className="w-screen flex flex-col items-start px-[25px] mt-[78.42px] mb-[78px] lg:w-1/2 lg:justify-center">
-        <h1 className="mb-[60px] mt-[57px] hidden lg:flex !text-[24px]">
+      <div className="w-screen flex flex-col items-start px-[25px] mt-[78.42px] mb-[78px] lg:w-1/2 lg:justify-center lg:m-0 lg:pt-[176px]">
+        <h1 className="mb-[60px] mt-[57px] hidden lg:flex !text-[24px] lg:mt-0">
           {projects.title}
         </h1>
         <h2 className="mb-[37px] mt-[25px] lg:hidden">{projects.title}</h2>

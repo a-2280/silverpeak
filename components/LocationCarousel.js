@@ -56,7 +56,8 @@ export default function LocationCarousel({ locations, currentLocation }) {
   const tripled = [...locations, ...locations, ...locations];
 
   // Map the tripled index back to the original location (for mobile carousel)
-  const mobileCurrentLocation = focusedIndex !== null ? tripled[focusedIndex] : null;
+  const mobileCurrentLocation =
+    focusedIndex !== null ? tripled[focusedIndex] : null;
 
   return (
     <>
@@ -93,7 +94,10 @@ export default function LocationCarousel({ locations, currentLocation }) {
             ))}
           </div>
         </div>
-        <div ref={descriptionRef} className="flex-1 overflow-y-auto mb-16 mx-[25px] pt-[25px] pb-[63px] no-scrollbar">
+        <div
+          ref={descriptionRef}
+          className="flex-1 overflow-y-auto mb-16 mx-[25px] pt-[25px] pb-[63px] no-scrollbar"
+        >
           {mobileCurrentLocation && mobileCurrentLocation.description && (
             <PortableText
               value={mobileCurrentLocation.description}

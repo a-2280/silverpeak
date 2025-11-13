@@ -14,8 +14,8 @@ export default async function about() {
 `);
 
   return (
-    <div className="lg:flex lg:justify-start lg:items-center lg:h-[100dvh] lg:w-screen lg:px-[25px]">
-      <div className="lg:flex lg:justify-start lg:items-stretch lg:w-full lg:h-min lg:mt-[-57px]">
+    <div className="lg:flex lg:justify-start lg:items-start lg:h-[100dvh] lg:w-screen lg:px-[25px] pt-[176px]">
+      <div className="lg:flex lg:justify-start lg:items-stretch lg:w-full lg:h-min">
         <div className="w-screen flex flex-col items-start px-[25px] mt-[78.42px] pb-[100px] lg:w-1/2 lg:px-0 lg:m-0 lg:p-0 lg:relative">
           <h1 className="mb-[60px] mt-[0px] hidden !text-[24px] lg:flex">
             {about.title}

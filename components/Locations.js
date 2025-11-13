@@ -65,7 +65,7 @@ export default function Locations() {
         <section
           key={index}
           data-location={index}
-          className="h-[100dvh] flex flex-col justify-center snap-center lg:snap-start lg:h-fit"
+          className="h-[100dvh] flex flex-col justify-center snap-center snap-always lg:snap-start lg:h-fit"
         >
           <h2 className="mb-[11px] lg:hidden">
             [{index + 1}] {location.title}
@@ -81,6 +81,8 @@ export default function Locations() {
                 priority={index < 3}
                 quality={100}
                 sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 807px"
+                placeholder="blur"
+                blurDataURL={urlFor(location.image).width(20).blur(50).url()}
                 className={`w-full h-auto max-h-[300px] min-h-[300px] max-[390px]:max-h-[200px] max-[390px]:min-h-[200px] object-cover mb-[20px] lg:max-h-[781.184px] lg:min-h-[781.184px] ${index === data.length - 1 ? "lg:mb-0" : "lg:mb-[9px]"}`}
               />
             </div>
