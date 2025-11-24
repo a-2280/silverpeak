@@ -6,6 +6,7 @@ export default async function ProjectsPage() {
     *[_type == 'projects'][0] {
       title,
       main,
+      defaultImage,
     }
   `);
 

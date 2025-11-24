@@ -5,14 +5,15 @@ import { client } from "@/sanity/lib/client";
 import { urlFor } from "@/sanity/lib/image";
 import Image from "next/image";
 
-async function getLocationImages() {
+async function getLandingPageImages() {
   const query = `
-    *[_type == 'location'] | order(coalesce(orderRank, _createdAt)) {
-      image
+    *[_type == 'landingPage'][0] {
+      carouselImages
     }
   `;
   const data = await client.fetch(query);
-  return data.map((location) => urlFor(location.image).quality(100).url()).filter(Boolean);
+  if (!data?.carouselImages) return [];
+  return data.carouselImages.map((image) => urlFor(image).quality(100).url()).filter(Boolean);
 }
 
 export default function FullScreenCarousel() {
@@ -20,10 +21,10 @@ export default function FullScreenCarousel() {
   const [images, setImages] = useState([]);
   const [loadedImages, setLoadedImages] = useState(new Set([0]));
 
-  // Fetch location images from Sanity
+  // Fetch landing page images from Sanity
   useEffect(() => {
-    getLocationImages().then((locationImages) => {
-      setImages(locationImages);
+    getLandingPageImages().then((landingPageImages) => {
+      setImages(landingPageImages);
     });
   }, []);
 

@@ -6,6 +6,9 @@ export const structure = (S, context) =>
     .title("Content")
     .items([
       S.listItem()
+        .title("Landing Page")
+        .child(S.document().schemaType("landingPage").documentId("landingPage")),
+      S.listItem()
         .title("About")
         .child(S.document().schemaType("about").documentId("about")),
       S.listItem()
@@ -18,6 +21,6 @@ export const structure = (S, context) =>
         context,
       }),
       ...S.documentTypeListItems().filter(
-        (item) => !["about", "projects", "location"].includes(item.getId())
+        (item) => !["about", "projects", "location", "landingPage"].includes(item.getId())
       ),
     ]);

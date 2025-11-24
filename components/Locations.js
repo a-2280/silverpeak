@@ -60,7 +60,7 @@ export default function Locations() {
   }, [data, activeIndex]);
 
   return (
-    <div className="h-max flex flex-col justify-center lg:flex-1">
+    <div className="h-max flex flex-col justify-center lg:flex-1 pb-[100dvh]">
       {data.map((location, index) => (
         <section
           key={index}

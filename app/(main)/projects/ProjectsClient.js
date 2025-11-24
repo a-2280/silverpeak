@@ -12,11 +12,11 @@ export default function ProjectsClient({ projects, locations }) {
   return (
     <div className="lg:flex lg:h-[100dvh]">
       <div className="w-screen flex flex-col items-start px-[25px] mt-[78.42px] mb-[78px] lg:w-1/2 lg:justify-center lg:m-0 lg:pt-[176px]">
-        <h1 className="mb-[60px] mt-[57px] hidden lg:flex !text-[24px] lg:mt-0">
+        <h1 className="mb-[50px] mt-[57px] hidden lg:flex !text-[24px] lg:mt-0">
           {projects.title}
         </h1>
         <h2 className="mb-[37px] mt-[25px] lg:hidden">{projects.title}</h2>
-        <div className="w-full mb-[25px] lg:mb-[59px]">
+        <div className="w-full mb-[25px] lg:mb-[25px]">
           {locations?.map((job, i) => (
             <div key={i} className="lg:max-w-[440px]">
               <Link
@@ -31,7 +31,7 @@ export default function ProjectsClient({ projects, locations }) {
                     className="!text-[10px]"
                     style={{ textDecoration: "underline" }}
                   >
-                    link
+                    view
                   </span>
                 </div>
               </Link>
@@ -53,9 +53,9 @@ export default function ProjectsClient({ projects, locations }) {
         </div>
       </div>
       <div className="hidden w-1/2 lg:flex" style={{ paddingRight: "25px" }}>
-        {(hoveredImage || locations?.[0]?.image) && (
+        {(hoveredImage || projects.defaultImage) && (
           <Image
-            src={urlFor(hoveredImage || locations[0].image)
+            src={urlFor(hoveredImage || projects.defaultImage)
               .quality(100)
               .url()}
             alt=""
