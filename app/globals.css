@@ -241,10 +241,16 @@
   font-family: "Figtree";
   font-size: 13px;
   font-style: normal;
-  font-weight: 400;
-  line-height: 1rem;
+  font-weight: 300;
+  line-height: 20px;
   letter-spacing: 0.65px;
   text-transform: none;
+}
+
+@media (max-width: 1023px) {
+  .alt-p {
+    line-height: 13px;
+  }
 }
 
 html,
@@ -260,34 +266,46 @@ body {
 a {
   color: #000000;
   font-family: "IBM Plex Mono";
-  font-size: 11px;
+  font-size: 10px;
   font-style: normal;
-  font-weight: 400;
-  line-height: 10.026px; /* 91.15% */
+  font-weight: 300;
+  line-height: 10px;
   letter-spacing: 0.55px;
   text-decoration-line: underline;
   text-decoration-style: solid;
   text-decoration-skip-ink: auto;
-  text-decoration-thickness: auto;
+  text-decoration-thickness: 0.5px;
   text-underline-offset: 30%; /* 3.3px */
   text-transform: uppercase;
+}
+
+@media (max-width: 1023px) {
+  a {
+    line-height: 10px;
+  }
 }
 
 button {
   color: #000;
   font-family: "IBM Plex Mono";
-  font-size: 11px;
+  font-size: 10px;
   font-style: normal;
-  font-weight: 400;
-  line-height: 15px; /* 150% */
+  font-weight: 300;
+  line-height: 10px;
   letter-spacing: 0.5px;
   text-decoration-line: underline;
   text-decoration-style: solid;
   text-decoration-skip-ink: auto;
-  text-decoration-thickness: auto;
+  text-decoration-thickness: 0.5px;
   text-underline-offset: 33%; /* 3.3px */
   text-transform: uppercase;
   cursor: pointer;
+}
+
+@media (max-width: 1023px) {
+  button {
+    line-height: 10px;
+  }
 }
 
 p {
@@ -295,10 +313,16 @@ p {
   font-family: "IBM Plex Mono";
   font-size: 10px;
   font-style: normal;
-  font-weight: 400;
+  font-weight: 300;
   line-height: 10px; /* 150% */
   letter-spacing: 0.5px;
   text-transform: uppercase;
+}
+
+@media (max-width: 1023px) {
+  p {
+    line-height: 10px;
+  }
 }
 
 h1 {
@@ -306,9 +330,15 @@ h1 {
   font-family: "Figtree";
   font-size: 20px;
   font-style: normal;
-  font-weight: 600;
-  line-height: 25px; /* 125% */
+  font-weight: 500;
+  line-height: 28px;
   letter-spacing: 1px;
+}
+
+@media (max-width: 1023px) {
+  h1 {
+    line-height: 20px;
+  }
 }
 
 h2 {
@@ -316,9 +346,15 @@ h2 {
   font-family: "Figtree";
   font-size: 13px;
   font-style: normal;
-  font-weight: 600;
+  font-weight: 500;
   line-height: 13px;
   letter-spacing: 0.65px;
+}
+
+@media (max-width: 1023px) {
+  h2 {
+    line-height: 13px;
+  }
 }
 
 li {
@@ -326,9 +362,15 @@ li {
   font-family: "Figtree";
   font-size: 11px;
   font-style: normal;
-  font-weight: 400;
-  line-height: 18.333px; /* 166.667% */
+  font-weight: 300;
+  line-height: 23px;
   letter-spacing: 0.55px;
+}
+
+@media (max-width: 1023px) {
+  li {
+    line-height: 11px;
+  }
 }
 
 label {
@@ -394,6 +436,11 @@ form button {
   text-decoration-thickness: auto;
   text-underline-offset: 33%; /* 4.29px */
   text-underline-position: from-font;
+}
+
+button:hover,
+a:hover {
+  color: #0078b0;
 }
 
 @keyframes slideIn {

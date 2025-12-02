@@ -17,16 +17,16 @@ export default async function about() {
     <div className="lg:flex lg:justify-start lg:items-start lg:h-[100dvh] lg:w-screen lg:px-[25px] lg:pt-[176px]">
       <div className="lg:flex lg:justify-start lg:items-stretch lg:w-full lg:h-min">
         <div className="w-screen flex flex-col items-start px-[25px] mt-[78.42px] pb-[100px] lg:w-1/2 lg:px-0 lg:m-0 lg:p-0 lg:relative">
-          <h1 className="mb-[50px] mt-[0px] hidden !text-[24px] lg:flex">
+          <h1 className="mb-[25px] mt-[0px] hidden !text-[24px] lg:flex">
             {about.title}
           </h1>
           <h2 className="mb-[37px] mt-[25px] lg:hidden">{about.title}</h2>
-          <div className="w-full mb-[25px] lg:max-w-[440px] lg:mb-0">
+          <div className="w-full mb-[25px] lg:max-w-fit lg:mb-0">
             {about.team?.map((member, i) => (
               <div key={i}>
                 <div className="grid grid-cols-3 gap-8 py-1">
                   <p className="!alt-p lg:!text-[15px]">{member.name}</p>
-                  <p className="col-span-2 !alt-p lg:!text-[15px]">
+                  <p className="col-span-2 !alt-p lg:!text-[15px] lg:w-fit">
                     {member.job}
                   </p>
                 </div>
@@ -63,7 +63,7 @@ export default async function about() {
               </ul>
             </div>
           </div>
-          <div className="mt-[50px] lg:mt-0 lg:absolute lg:bottom-[-57px]">
+          <div className="mt-[50px] lg:mt-0 lg:absolute lg:bottom-[-65px]">
             <p className="!alt-p lg:!text-[15px]">
               Interested in joining our team?
             </p>

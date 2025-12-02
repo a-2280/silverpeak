@@ -37,11 +37,11 @@ export default function DestopCarousel({ currentLocation }) {
           <p className="!text-[13px]">{currentLocation?.subtitle}</p>
           <div className="">
             <p className="!alt-p !text-[15px]">
-              <span style={{ fontWeight: 600 }}>Construction Type: </span>
+              <span style={{ fontWeight: 500 }}>Construction Type: </span>
               {currentLocation?.construction}
             </p>
             <p className="!alt-p !text-[15px]">
-              <span style={{ fontWeight: 600 }}>Square Footage: </span>
+              <span style={{ fontWeight: 500 }}>Square Footage: </span>
               {currentLocation?.squareFootage}
             </p>
           </div>
@@ -95,7 +95,6 @@ export default function DestopCarousel({ currentLocation }) {
                 const next = currentLocation.gallery[i + 1];
 
                 if (current?.pairWithNext && next?.image) {
-                  // Paired images
                   rows.push(
                     <div
                       key={i}
@@ -132,7 +131,10 @@ export default function DestopCarousel({ currentLocation }) {
                 } else if (current?.image) {
                   // Single image
                   rows.push(
-                    <div key={i} className={`relative w-full bg-gray-200 ${i < currentLocation.gallery.length - 1 ? "mb-[10px]" : ""}`}>
+                    <div
+                      key={i}
+                      className={`relative w-full bg-gray-200 ${i < currentLocation.gallery.length - 1 ? "mb-[10px]" : ""}`}
+                    >
                       <Image
                         src={urlFor(current.image).quality(100).url()}
                         alt={`${currentLocation.title} - Gallery image ${i + 1}`}
@@ -157,7 +159,11 @@ export default function DestopCarousel({ currentLocation }) {
       </div>
 
       <ImageCarousel
-        images={currentLocation.gallery?.map((item) => urlFor(item.image).quality(100).url()) || []}
+        images={
+          currentLocation.gallery?.map((item) =>
+            urlFor(item.image).quality(100).url()
+          ) || []
+        }
         hidden={hideCarousel}
         onClose={() => setHideCarousel(true)}
       />

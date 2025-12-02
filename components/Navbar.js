@@ -53,7 +53,7 @@ export default function Navbar() {
             Menu
           </button>
           <ul
-            className={`mt-[-1.1rem] flex gap-[38px] ${open || isClosing ? "" : "hidden"}`}
+            className={`mt-[-1.3rem] flex gap-[38px] ${open || isClosing ? "" : "hidden"}`}
           >
             <li className={open ? "" : "opacity-0"}>
               <Link
@@ -64,7 +64,13 @@ export default function Navbar() {
               </Link>
             </li>
             <li
-              className={open ? "animate-slideIn" : isClosing ? "animate-slideOutRight" : "opacity-0"}
+              className={
+                open
+                  ? "animate-slideIn"
+                  : isClosing
+                    ? "animate-slideOutRight"
+                    : "opacity-0"
+              }
               style={{ animationDelay: open ? "0.1s" : "0.1s" }}
             >
               <Link
@@ -75,7 +81,13 @@ export default function Navbar() {
               </Link>
             </li>
             <li
-              className={open ? "animate-slideIn" : isClosing ? "animate-slideOutRight" : "opacity-0"}
+              className={
+                open
+                  ? "animate-slideIn"
+                  : isClosing
+                    ? "animate-slideOutRight"
+                    : "opacity-0"
+              }
               style={{ animationDelay: open ? "0.2s" : "0s" }}
             >
               <Link
