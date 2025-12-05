@@ -45,7 +45,9 @@ export default function ProjectsClient({ projects, locations }) {
             components={{
               block: {
                 normal: ({ children }) => (
-                  <p className="!alt-p lg:!text-[15px]">{children}</p>
+                  <p className="!alt-p lg:!text-[15px] max-lg:!leading-[16px]">
+                    {children}
+                  </p>
                 ),
               },
             }}

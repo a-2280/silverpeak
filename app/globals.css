@@ -249,7 +249,8 @@
 
 @media (max-width: 1023px) {
   .alt-p {
-    line-height: 13px;
+    line-height: 16px !important;
+    background-color: red !important;
   }
 }
 
@@ -281,7 +282,7 @@ a {
 
 @media (max-width: 1023px) {
   a {
-    line-height: 10px;
+    line-height: 13px;
   }
 }
 
@@ -304,7 +305,7 @@ button {
 
 @media (max-width: 1023px) {
   button {
-    line-height: 10px;
+    line-height: 13px;
   }
 }
 
@@ -337,7 +338,7 @@ h1 {
 
 @media (max-width: 1023px) {
   h1 {
-    line-height: 20px;
+    line-height: 25px;
   }
 }
 
@@ -354,6 +355,7 @@ h2 {
 @media (max-width: 1023px) {
   h2 {
     line-height: 13px;
+    font-size: 14px;
   }
 }
 
@@ -369,7 +371,7 @@ li {
 
 @media (max-width: 1023px) {
   li {
-    line-height: 11px;
+    line-height: 13px;
   }
 }
 

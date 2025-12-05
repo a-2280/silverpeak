@@ -24,9 +24,9 @@ export default async function about() {
           <div className="w-full mb-[25px] lg:max-w-fit lg:mb-0">
             {about.team?.map((member, i) => (
               <div key={i}>
-                <div className="grid grid-cols-3 gap-8 py-1">
+                <div className="grid grid-cols-3 py-1">
                   <p className="!alt-p lg:!text-[15px]">{member.name}</p>
-                  <p className="col-span-2 !alt-p lg:!text-[15px] lg:w-fit">
+                  <p className="col-span-2 !alt-p lg:!text-[15px] ml-9">
                     {member.job}
                   </p>
                 </div>
@@ -40,7 +40,7 @@ export default async function about() {
               components={{
                 block: {
                   normal: ({ children }) => (
-                    <p className="!alt-p ">{children}</p>
+                    <p className="!alt-p !leading-[16px]">{children}</p>
                   ),
                 },
               }}
@@ -49,7 +49,10 @@ export default async function about() {
               <p className="mb-4">some clients include:</p>
               <ul>
                 {about.clients?.map((client, i) => (
-                  <li key={i} className="flex items-center gap-[4.64px]">
+                  <li
+                    key={i}
+                    className="flex items-center gap-[4.64px] !leading-[16px]"
+                  >
                     <Image
                       src="/arrow.svg"
                       alt="arrow"

@@ -15,8 +15,8 @@ export default function Footer() {
     <>
       <div className="w-full fixed bottom-0 left-0 flex justify-between items-center py-[19px] px-[25px] bg-white flex-wrap z-10 lg:bg-transparent lg:flex-row lg:items-end">
         <div className="lg:flex lg:flex-col lg:gap-[9px] lg:w-1/2">
-          <p className="text-nowrap lg:!text-[13px] pb-[9px] lg:pb-0">
-            +1 (801) 499 5045 /{" "}
+          <p className="text-nowrap lg:!text-[13px] pb-[6px] lg:pb-0">
+            +1 (801) 499 5045{" / "}
             <button
               className="!no-underline lg:!text-[13px] hover:!text-blue"
               onClick={() => setOpen(!open)}

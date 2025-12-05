@@ -67,9 +67,7 @@ export default function Locations() {
           data-location={index}
           className="h-[100dvh] flex flex-col justify-center snap-center snap-always lg:snap-start lg:h-fit"
         >
-          <h2 className="mb-[11px] lg:hidden">
-            [{index + 1}] {location.title}
-          </h2>
+          <h2 className="mb-[8px] lg:hidden">{location.title}</h2>
           <p className="mb-[23px] lg:hidden">{location.subtitle}</p>
           {location.image && (
             <div className="relative">
@@ -88,7 +86,10 @@ export default function Locations() {
           <div className="flex justify-between items-start lg:hidden">
             <ul>
               {location.attributes?.map((attr, i) => (
-                <li key={i} className="flex items-center gap-[4.64px]">
+                <li
+                  key={i}
+                  className="flex items-center gap-[4.64px] max-lg:!leading-[16px]"
+                >
                   <Image
                     src="/arrow.svg"
                     alt="arrow"

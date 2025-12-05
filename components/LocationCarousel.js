@@ -80,7 +80,7 @@ export default function LocationCarousel({ locations, currentLocation }) {
                       : "invisible absolute"
                   }
                 >
-                  <h2 className="mb-[11px]">{location.title}</h2>
+                  <h2 className="mb-[8px]">{location.title}</h2>
                   <p className="mb-[23px]">{location.subtitle}</p>
                 </div>
                 <Image
@@ -104,7 +104,9 @@ export default function LocationCarousel({ locations, currentLocation }) {
               components={{
                 block: {
                   normal: ({ children }) => (
-                    <p className="!alt-p !leading-[13px]">{children}</p>
+                    <p className="!alt-p !leading-[13px] max-lg:!leading-[16px]">
+                      {children}
+                    </p>
                   ),
                 },
               }}
