@@ -3,6 +3,9 @@ import "./globals.css";
 export const metadata = {
   title: "Silverpeak",
   description: "Engineering",
+  icons: {
+    icon: '/icon.ico',
+  },
 };
 
 export default function RootLayout({ children }) {
