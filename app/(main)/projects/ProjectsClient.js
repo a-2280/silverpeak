@@ -28,7 +28,7 @@ export default function ProjectsClient({ projects, locations }) {
                 <div className="flex justify-between items-center py-1">
                   <p className="!alt-p lg:!text-[15px]">{job.title}</p>
                   <span
-                    className="!text-[10px]"
+                    className="!text-[13px]"
                     style={{ textDecoration: "underline" }}
                   >
                     view

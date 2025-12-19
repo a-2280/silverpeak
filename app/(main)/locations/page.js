@@ -12,7 +12,7 @@ export default function locations() {
             efficiency, beauty, and safety. Scroll to view some of our favorite
             work.
           </h1>
-          <Link href="/about" className="lg:!text-[13px]">
+          <Link href="/about" className="!text-[13px]">
             about silverpeak
           </Link>
         </div>

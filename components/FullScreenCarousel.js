@@ -13,7 +13,9 @@ async function getLandingPageImages() {
   `;
   const data = await client.fetch(query);
   if (!data?.carouselImages) return [];
-  return data.carouselImages.map((image) => urlFor(image).quality(100).url()).filter(Boolean);
+  return data.carouselImages
+    .map((image) => urlFor(image).quality(100).url())
+    .filter(Boolean);
 }
 
 export default function FullScreenCarousel() {
@@ -34,7 +36,7 @@ export default function FullScreenCarousel() {
 
     const nextIndex = (currentImageIndex + 1) % images.length;
     if (!loadedImages.has(nextIndex)) {
-      const img = document.createElement('img');
+      const img = document.createElement("img");
       img.src = images[nextIndex];
       img.onload = () => {
         setLoadedImages((prev) => new Set([...prev, nextIndex]));
@@ -55,7 +57,7 @@ export default function FullScreenCarousel() {
         }
         return prevIndex;
       });
-    }, 3000);
+    }, 2000);
 
     return () => clearInterval(interval);
   }, [images.length, loadedImages]);

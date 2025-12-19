@@ -1,4 +1,4 @@
-import LocationCarousel from "@/components/LocationCarousel";
+import LocationGallery from "@/components/LocationGallery";
 import { client } from "@/sanity/lib/client";
 
 export default async function LocationDetailPage({ params }) {
@@ -18,7 +18,5 @@ export default async function LocationDetailPage({ params }) {
 
   const currentLocation = locations.find((loc) => loc.currentSlug === slug);
 
-  return (
-    <LocationCarousel locations={locations} currentLocation={currentLocation} />
-  );
+  return <LocationGallery currentLocation={currentLocation} />;
 }

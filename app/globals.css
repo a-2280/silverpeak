@@ -283,6 +283,7 @@ a {
 @media (max-width: 1023px) {
   a {
     line-height: 13px;
+    font-size: 13px;
   }
 }
 
@@ -306,6 +307,7 @@ button {
 @media (max-width: 1023px) {
   button {
     line-height: 13px;
+    font-size: 13px;
   }
 }
 
@@ -372,6 +374,7 @@ li {
 @media (max-width: 1023px) {
   li {
     line-height: 13px;
+    font-size: 13px;
   }
 }
 
