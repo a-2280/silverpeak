@@ -70,14 +70,14 @@ export default function LocationGallery({ currentLocation }) {
     <>
       <div className="flex flex-col h-[100dvh] lg:hidden">
         <div className="pt-[25px] w-screen pl-[25px] mt-19.5">
-          <h2 className="mb-[8px]">{currentLocation?.title}</h2>
+          <h2 className="mb-[9px]">{currentLocation?.title}</h2>
           <p className="mb-[23px]">{currentLocation?.subtitle}</p>
         </div>
         <div
           ref={scrollRef}
           className="overflow-x-auto snap-x snap-mandatory no-scrollbar"
         >
-          <div className="flex gap-[9px]">
+          <div className="flex gap-[3px]">
             {tripled.map((item, index) => (
               <div
                 key={index}

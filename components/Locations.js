@@ -67,7 +67,7 @@ export default function Locations() {
           data-location={index}
           className="h-[100dvh] flex flex-col justify-center snap-center snap-always lg:snap-start lg:h-fit"
         >
-          <h2 className="mb-[8px] lg:hidden">{location.title}</h2>
+          <h2 className="mb-[10px] lg:hidden">{location.title}</h2>
           <p className="mb-[23px] lg:hidden">{location.subtitle}</p>
           {location.image && (
             <div className="relative">

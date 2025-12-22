@@ -325,6 +325,7 @@ p {
 @media (max-width: 1023px) {
   p {
     line-height: 10px;
+    font-size: 15px;
   }
 }
 
@@ -357,7 +358,7 @@ h2 {
 @media (max-width: 1023px) {
   h2 {
     line-height: 13px;
-    font-size: 14px;
+    font-size: 15px;
   }
 }
 
@@ -373,7 +374,7 @@ li {
 
 @media (max-width: 1023px) {
   li {
-    line-height: 13px;
+    line-height: 15px;
     font-size: 13px;
   }
 }

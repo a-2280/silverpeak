@@ -18,7 +18,7 @@ export default function Footer() {
           <p className="text-nowrap lg:!text-[12px] pb-[6px] lg:pb-0">
             +1 (801) 499 5045{" / "}
             <button
-              className="!no-underline !text-[10px] lg:!text-[12px] hover:!text-blue"
+              className="!no-underline !text-[13px] lg:!text-[12px] hover:!text-blue"
               onClick={() => setOpen(!open)}
             >
               EMAIL
