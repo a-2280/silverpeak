@@ -16,7 +16,7 @@ export default function locations() {
             about silverpeak
           </Link>
         </div>
-        <div className="absolute bottom-[22.5%] left-1/2 transform -translate-x-1/2">
+        <div className="md:invisible absolute bottom-[22.5%] left-1/2 transform -translate-x-1/2">
           <Image src="/downArrow.svg" alt="down arrow" height={15} width={15} />
         </div>
       </section>

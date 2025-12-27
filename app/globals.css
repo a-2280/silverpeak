@@ -374,7 +374,7 @@ li {
 
 @media (max-width: 1023px) {
   li {
-    line-height: 15px;
+    line-height: 16px;
     font-size: 13px;
   }
 }

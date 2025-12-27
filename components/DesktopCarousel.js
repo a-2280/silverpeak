@@ -6,10 +6,38 @@ import { PortableText } from "next-sanity";
 import { useRouter } from "next/navigation";
 import ImageCarousel from "./ImageCarousel";
 
+function buildFlattenedGalleryArray(gallery) {
+  const flattened = [];
+  let i = 0;
+
+  while (i < gallery.length) {
+    const current = gallery[i];
+    const next = gallery[i + 1];
+
+    if (current?.pairWithNext && next?.image) {
+      // Add both images from the pair
+      flattened.push(urlFor(current.image).quality(100).url());
+      flattened.push(urlFor(next.image).quality(100).url());
+      i += 2;
+    } else if (current?.image) {
+      // Add single image
+      flattened.push(urlFor(current.image).quality(100).url());
+      i += 1;
+    } else {
+      i += 1;
+    }
+  }
+
+  return flattened;
+}
+
 export default function DestopCarousel({ currentLocation }) {
   const router = useRouter();
   const galleryRef = useRef(null);
   const [hideCarousel, setHideCarousel] = useState(true);
+  const [clickedImageIndex, setClickedImageIndex] = useState(0);
+
+  const flattenedGallery = buildFlattenedGalleryArray(currentLocation?.gallery || []);
 
   useEffect(() => {
     const handleWheel = (e) => {
@@ -90,11 +118,16 @@ export default function DestopCarousel({ currentLocation }) {
             (() => {
               const rows = [];
               let i = 0;
+              let flattenedIndex = 0; // Track position in flattened array
+
               while (i < currentLocation.gallery.length) {
                 const current = currentLocation.gallery[i];
                 const next = currentLocation.gallery[i + 1];
 
                 if (current?.pairWithNext && next?.image) {
+                  const leftImageIndex = flattenedIndex;
+                  const rightImageIndex = flattenedIndex + 1;
+
                   rows.push(
                     <div
                       key={i}
@@ -110,7 +143,10 @@ export default function DestopCarousel({ currentLocation }) {
                           quality={100}
                           unoptimized
                           className="w-full h-auto object-cover cursor-pointer"
-                          onClick={() => setHideCarousel(false)}
+                          onClick={() => {
+                            setClickedImageIndex(leftImageIndex);
+                            setHideCarousel(false);
+                          }}
                         />
                       </div>
                       <div className="flex-1 relative w-full h-auto bg-gray-200">
@@ -122,13 +158,19 @@ export default function DestopCarousel({ currentLocation }) {
                           quality={100}
                           unoptimized
                           className="w-full h-auto object-cover cursor-pointer"
-                          onClick={() => setHideCarousel(false)}
+                          onClick={() => {
+                            setClickedImageIndex(rightImageIndex);
+                            setHideCarousel(false);
+                          }}
                         />
                       </div>
                     </div>
                   );
+                  flattenedIndex += 2;
                   i += 2;
                 } else if (current?.image) {
+                  const singleImageIndex = flattenedIndex;
+
                   // Single image
                   rows.push(
                     <div
@@ -143,10 +185,14 @@ export default function DestopCarousel({ currentLocation }) {
                         quality={100}
                         unoptimized
                         className="w-full h-auto object-cover cursor-pointer"
-                        onClick={() => setHideCarousel(false)}
+                        onClick={() => {
+                          setClickedImageIndex(singleImageIndex);
+                          setHideCarousel(false);
+                        }}
                       />
                     </div>
                   );
+                  flattenedIndex += 1;
                   i += 1;
                 } else {
                   // Skip invalid entries
@@ -159,11 +205,8 @@ export default function DestopCarousel({ currentLocation }) {
       </div>
 
       <ImageCarousel
-        images={
-          currentLocation.gallery?.map((item) =>
-            urlFor(item.image).quality(100).url()
-          ) || []
-        }
+        images={flattenedGallery}
+        initialIndex={clickedImageIndex}
         hidden={hideCarousel}
         onClose={() => setHideCarousel(true)}
       />

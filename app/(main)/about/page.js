@@ -20,7 +20,7 @@ export default async function about() {
           <h1 className="mb-[25px] mt-[0px] hidden !text-[24px] lg:flex">
             {about.title}
           </h1>
-          <h2 className="mb-[37px] mt-[25px] lg:hidden">{about.title}</h2>
+          <h2 className="mb-[25px] mt-[25px] lg:hidden">{about.title}</h2>
           <div className="w-full mb-[25px] lg:max-w-fit lg:mb-0">
             {about.team?.map((member, i) => (
               <div key={i}>
@@ -40,7 +40,10 @@ export default async function about() {
               components={{
                 block: {
                   normal: ({ children }) => (
-                    <p className="!alt-p !leading-[16px]">{children}</p>
+                    <p className="!alt-p !leading-[16px]">
+                      {children} Interested in joining our team? Contact us
+                      using the information below.
+                    </p>
                   ),
                 },
               }}
@@ -66,14 +69,6 @@ export default async function about() {
               </ul>
             </div>
           </div>
-          <div className="mt-[50px] lg:mt-0 lg:absolute lg:bottom-[-65px]">
-            <p className="!alt-p lg:!text-[15px]">
-              Interested in joining our team?
-            </p>
-            <p className="!alt-p lg:!text-[15px]">
-              Contact us using the information below.
-            </p>
-          </div>
         </div>
         <div className="hidden lg:flex flex-col max-w-[806px] justify-center lg:w-1/2 lg:justify-between lg:gap-[64px]">
           <PortableText
@@ -81,8 +76,9 @@ export default async function about() {
             components={{
               block: {
                 normal: ({ children }) => (
-                  <p className="!alt-p !text-[15px] lg:h-full lg:overflow-scroll lg:max-h-[225px] lg:no-scrollbar">
-                    {children}
+                  <p className="!alt-p !text-[15px] lg:h-full lg:overflow-scroll lg:max-h-[255px] lg:no-scrollbar">
+                    {children} Interested in joining our team? Contact us using
+                    the information below.
                   </p>
                 ),
               },

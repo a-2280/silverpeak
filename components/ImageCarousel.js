@@ -1,10 +1,18 @@
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import Image from "next/image";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
-export default function ImageCarousel({ images, hidden, onClose }) {
-  const [imageIndex, setImageIndex] = useState(0);
+export default function ImageCarousel({ images, initialIndex = 0, hidden, onClose }) {
+  const [imageIndex, setImageIndex] = useState(initialIndex);
   const [isLoading, setIsLoading] = useState(true);
+
+  // Update imageIndex when initialIndex changes (new image clicked)
+  useEffect(() => {
+    if (!hidden) {
+      setImageIndex(initialIndex);
+      setIsLoading(true);
+    }
+  }, [initialIndex, hidden]);
 
   if (hidden) return null;
 
