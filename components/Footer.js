@@ -13,8 +13,8 @@ export default function Footer() {
 
   return (
     <>
-      <div className="w-full fixed bottom-0 left-0 flex justify-between items-center py-[19px] px-[25px] bg-white flex-wrap z-10 lg:bg-transparent lg:flex-row lg:items-end">
-        <div className="lg:flex lg:flex-col lg:gap-[9px] lg:w-1/2">
+      <div className="w-full fixed bottom-0 left-0 flex justify-between items-center py-[19px] px-[25px] bg-[#F0F0F0] flex-wrap z-10 lg:bg-transparent lg:flex-row lg:items-end">
+        <div className="min-[500px]:w-full min-[500px]:flex min-[500px]:justify-between min-[500px]:items-baseline lg:flex-col lg:gap-[9px] lg:w-1/2">
           <p className="text-nowrap !text-[13px] pb-[6px] lg:pb-0">
             +1 (801) 499 5045{" / "}
             <button
