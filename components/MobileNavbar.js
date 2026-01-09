@@ -57,19 +57,19 @@ export default function MobileNavbar({ onClose }) {
           </li>
         </ul>
         <div
-          className="flex justify-between items-center gap-[10px] max-[500px]:flex-col max-[500px]:items-start"
+          className="flex justify-between items-center gap-[10px] max-[405px]:flex-col max-[405px]:items-start"
           onClick={(e) => e.stopPropagation()}
         >
-          <p className="text-nowrap !text-[13px] !text-white">
+          <p className="text-nowrap !text-[10px] !text-white">
             +1 (801) 499 5045 /{" "}
             <button
-              className="!no-underline !text-[13px] !text-white"
+              className="!no-underline !text-[10px] !text-white"
               onClick={() => setOpen(!open)}
             >
               EMAIL
             </button>
           </p>
-          <p className="text-end w-fit text-nowrap !text-[13px] !text-white">
+          <p className="text-end w-fit text-nowrap !text-[10px] !text-white">
             &copy;{currentYear} SILVERPEAK ENGINEERING
           </p>
         </div>
