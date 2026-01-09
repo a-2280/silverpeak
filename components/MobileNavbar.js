@@ -20,7 +20,7 @@ export default function MobileNavbar({ onClose }) {
             alt="logo"
             height={20.396}
             width={114}
-            className="h-[20.396px] w-[114px]"
+            className="h-[20.396px] w-[114px] -ml-2"
             onClick={(e) => e.stopPropagation()}
           />
         </Link>
