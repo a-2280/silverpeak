@@ -53,7 +53,10 @@ export default function Locations() {
           }
         });
       },
-      { threshold: 0.5 }
+      {
+        threshold: 0,
+        rootMargin: '-10% 0px -90% 0px'
+      }
     );
     sections.forEach((section) => observer.observe(section));
     return () => observer.disconnect();
